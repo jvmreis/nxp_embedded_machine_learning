@@ -11,6 +11,10 @@
 #include "math.h"
 #include "app.h"
 
+#include "TimeSeries.h"
+
+float data_input[TSS_INPUT_DATA_LEN * TSS_INPUT_DATA_DIM];
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -106,6 +110,12 @@ static void HW_Timer_init(void)
     /* Configure the SysTick timer */
     SysTick_Config(SystemCoreClock / HWTIMER_PERIOD);
 }
+
+void sample_data(float data_buffer[])
+{
+    /* Collect data and put them into the buffer */
+}
+
 
 void SysTick_Handler(void)
 {
@@ -272,6 +282,38 @@ int main(void)
     GETCHAR();
     Magnetometer_Calibrate();
 
+
+    tss_status status;
+    float probability;
+
+#ifdef SUPPORT_ODL
+    status = tss_ad_init(NULL);
+    if (status != TSS_SUCCESS)
+    {
+        /* Handle the initialization failure cases */
+    }
+
+    /*The learning number is customizable, but we recommend the number greater than TSS_RECOMMEND_LEARNING_SAMPLE_NUM to get better results.*/
+    int learning_num = TSS_RECOMMEND_LEARNING_SAMPLE_NUM;
+    for (int i = 0; i < learning_num; i++)
+    {
+        sample_data(data_input);
+        status = tss_ad_learn(data_input);
+        if (status != TSS_LEARNING_NOT_ENOUGH && status != TSS_RECOMMEND_LEARNING_DONE)
+        {
+            /* Handle the learning failure cases */
+        }
+    }
+#else
+    status = tss_ad_init();
+    if (status != TSS_SUCCESS)
+    {
+        PRINTF("status tss_ad_init %d \n", status);
+        /* Handle the initialization failure cases */
+    }
+#endif
+
+
     /* Infinite loops */
     for (;;)
     {
@@ -327,6 +369,16 @@ int main(void)
             g_Mx_LP += ((double)g_Mx_Raw - g_Mx_LP) * 0.01;
             g_My_LP += ((double)g_My_Raw - g_My_LP) * 0.01;
             g_Mz_LP += ((double)g_Mz_Raw - g_Mz_LP) * 0.01;
+
+
+            sample_data(data_input);
+            status = tss_ad_predict(data_input, &probability);
+            if (status != TSS_SUCCESS)
+            {
+                PRINTF("status tss_ad_predict %d \n", status);
+
+                /* Handle the prediction failure cases */
+            }
 
             if (++loopCounter > 10)
           {

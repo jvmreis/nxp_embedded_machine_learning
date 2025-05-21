@@ -51,7 +51,7 @@ main-build: nxp_embedded_machine_learning_ecompass.axf
 nxp_embedded_machine_learning_ecompass.axf: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -Xlinker -no-warn-rwx-segments -Xlinker -Map="nxp_embedded_machine_learning_ecompass.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -T nxp_embedded_machine_learning_ecompass_Debug.ld -o "nxp_embedded_machine_learning_ecompass.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"C:\Users\xmartij01\Documents\MCUXpressoIDE_24.12.148\workspace\nxp_embedded_machine_learning_ecompass\source\lib" -Xlinker -no-warn-rwx-segments -Xlinker -Map="nxp_embedded_machine_learning_ecompass.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -T nxp_embedded_machine_learning_ecompass_Debug.ld -o "nxp_embedded_machine_learning_ecompass.axf" $(OBJS) $(USER_OBJS) $(LIBS) -Wl,--start-group -ltss -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
