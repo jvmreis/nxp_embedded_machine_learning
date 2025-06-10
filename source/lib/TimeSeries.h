@@ -16,9 +16,9 @@
 #ifndef _TIMESERIES_H_
 #define _TIMESERIES_H_
 
-#define ANOMALY_DETECTION_LIB_ID "736570c"
+#define ANOMALY_DETECTION_LIB_ID "7b59c77"
 
-#define TSS_INPUT_DATA_LEN                           (1)
+#define TSS_INPUT_DATA_LEN                           (128)
 #define TSS_INPUT_DATA_DIM                           (3)
 
 #define USE_ANOMALY_DETECTION

@@ -1,2 +1,2 @@
-# nxp_embedded_machine_learning
-worked on anomaly detection model using eQUI nxp
+# mic_embedded_machine_learning
+using IMXRT1050 microphone with embedded machine learning
