@@ -61,7 +61,7 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := nxp_embedded_machine_learning
+BUILD_ARTIFACT_NAME := evkbimxrt1050_sai_peripheral
 BUILD_ARTIFACT_EXTENSION := axf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
@@ -73,24 +73,24 @@ all:
 	+@$(MAKE) --no-print-directory main-build && $(MAKE) --no-print-directory post-build
 
 # Main-build Target
-main-build: nxp_embedded_machine_learning.axf
+main-build: evkbimxrt1050_sai_peripheral.axf
 
 # Tool invocations
-nxp_embedded_machine_learning.axf: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
+evkbimxrt1050_sai_peripheral.axf: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:\Github\nxp_embedded_machine_learning\source\lib" -Xlinker -no-warn-rwx-segments -Xlinker -Map="nxp_embedded_machine_learning.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -T nxp_embedded_machine_learning_Debug.ld -o "nxp_embedded_machine_learning.axf" $(OBJS) $(USER_OBJS) $(LIBS) -Wl,--start-group -ltss -Wl,--end-group
+	arm-none-eabi-gcc -nostdlib -L"C:\Github\nxp_embedded_machine_learning\source\lib" -Xlinker -no-warn-rwx-segments -Xlinker -Map="evkbimxrt1050_sai_peripheral.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -T evkbimxrt1050_sai_peripheral_Debug.ld -o "evkbimxrt1050_sai_peripheral.axf" $(OBJS) $(USER_OBJS) $(LIBS) -Wl,--start-group -ltss -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) nxp_embedded_machine_learning.axf
+	-$(RM) evkbimxrt1050_sai_peripheral.axf
 	-@echo ' '
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "nxp_embedded_machine_learning.axf"; # arm-none-eabi-objcopy -v -O binary "nxp_embedded_machine_learning.axf" "nxp_embedded_machine_learning.bin" ; # checksum -p MIMXRT1052xxxxB -d "nxp_embedded_machine_learning.bin";
+	-arm-none-eabi-size "evkbimxrt1050_sai_peripheral.axf"; # arm-none-eabi-objcopy -v -O binary "evkbimxrt1050_sai_peripheral.axf" "evkbimxrt1050_sai_peripheral.bin" ; # checksum -p MIMXRT1052xxxxB -d "evkbimxrt1050_sai_peripheral.bin";
 	-@echo ' '
 
 .PHONY: all clean dependents main-build post-build

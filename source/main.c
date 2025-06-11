@@ -260,7 +260,10 @@ int main(void)
     EnableIRQ(DEMO_SAI_TX_IRQ);
     EnableIRQ(DEMO_SAI_RX_IRQ);
 
-
+    // Habilita o DWT para contagem de ciclos
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CYCCNT = 0;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
     /********************************************************************************************/
 
     /***************************** externa accleroemter inicialization ***************************/
@@ -306,6 +309,7 @@ int main(void)
     	       sensor_data.gyro_dps[0], sensor_data.gyro_dps[1], sensor_data.gyro_dps[2],
     	       sensor_data.temperature);
     }
+
 
     /********************************************************************************************/
     /***************************** on board accleroemter inicialization not used ************************

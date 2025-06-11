@@ -40,9 +40,8 @@
 *.su
 *.idb
 *.pdb
-*Debug/
 *.ld
-*.Id
+*.mk
 
 # Kernel Module Compile Results
 *.mod*

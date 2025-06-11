@@ -6,36 +6,42 @@
 C_SRCS += \
 ../source/I2Cdev.c \
 ../source/MPU6050.c \
+../source/fsl_fxos.c \
+../source/machine_learning.c \
+../source/main.c \
 ../source/peripherals.c \
 ../source/playbackSineWave.c \
 ../source/playbackSong.c \
 ../source/recordPlayback.c \
 ../source/recordtoSdcard.c \
-../source/sai_peripheral.c \
 ../source/sdmmc_config.c \
 ../source/semihost_hardfault.c 
 
 C_DEPS += \
 ./source/I2Cdev.d \
 ./source/MPU6050.d \
+./source/fsl_fxos.d \
+./source/machine_learning.d \
+./source/main.d \
 ./source/peripherals.d \
 ./source/playbackSineWave.d \
 ./source/playbackSong.d \
 ./source/recordPlayback.d \
 ./source/recordtoSdcard.d \
-./source/sai_peripheral.d \
 ./source/sdmmc_config.d \
 ./source/semihost_hardfault.d 
 
 OBJS += \
 ./source/I2Cdev.o \
 ./source/MPU6050.o \
+./source/fsl_fxos.o \
+./source/machine_learning.o \
+./source/main.o \
 ./source/peripherals.o \
 ./source/playbackSineWave.o \
 ./source/playbackSong.o \
 ./source/recordPlayback.o \
 ./source/recordtoSdcard.o \
-./source/sai_peripheral.o \
 ./source/sdmmc_config.o \
 ./source/semihost_hardfault.o 
 
@@ -52,7 +58,7 @@ source/%.o: ../source/%.c source/subdir.mk
 clean: clean-source
 
 clean-source:
-	-$(RM) ./source/I2Cdev.d ./source/I2Cdev.o ./source/MPU6050.d ./source/MPU6050.o ./source/peripherals.d ./source/peripherals.o ./source/playbackSineWave.d ./source/playbackSineWave.o ./source/playbackSong.d ./source/playbackSong.o ./source/recordPlayback.d ./source/recordPlayback.o ./source/recordtoSdcard.d ./source/recordtoSdcard.o ./source/sai_peripheral.d ./source/sai_peripheral.o ./source/sdmmc_config.d ./source/sdmmc_config.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o
+	-$(RM) ./source/I2Cdev.d ./source/I2Cdev.o ./source/MPU6050.d ./source/MPU6050.o ./source/fsl_fxos.d ./source/fsl_fxos.o ./source/machine_learning.d ./source/machine_learning.o ./source/main.d ./source/main.o ./source/peripherals.d ./source/peripherals.o ./source/playbackSineWave.d ./source/playbackSineWave.o ./source/playbackSong.d ./source/playbackSong.o ./source/recordPlayback.d ./source/recordPlayback.o ./source/recordtoSdcard.d ./source/recordtoSdcard.o ./source/sdmmc_config.d ./source/sdmmc_config.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o
 
 .PHONY: clean-source
 
