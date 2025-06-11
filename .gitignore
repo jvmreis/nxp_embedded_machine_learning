@@ -18,7 +18,6 @@
 
 # Libraries
 *.lib
-*.a
 *.la
 *.lo
 
@@ -41,6 +40,9 @@
 *.su
 *.idb
 *.pdb
+*Debug/
+*.ld
+*.Id
 
 # Kernel Module Compile Results
 *.mod*
