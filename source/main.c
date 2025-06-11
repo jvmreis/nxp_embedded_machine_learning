@@ -19,6 +19,8 @@
 #include "sai.h"
 #include "app.h"
 #include "MPU6050.h"
+#include "fsl_fxos.h"
+#include "machine_learning.h"
 
 /*******************************************************************************
  * Definitions
@@ -55,6 +57,8 @@ volatile uint32_t receiveCount = 0;
 volatile bool sdcard           = false;
 volatile uint32_t fullBlock    = 0;
 volatile uint32_t emptyBlock   = BUFFER_NUM;
+fxos_handle_t g_fxosHandle;
+
 #if defined DEMO_SDCARD
 /* static values for fatfs */
 
@@ -235,7 +239,10 @@ int main(void)
 
     BOARD_InitHardware();
 
-    PRINTF("SAI Demo started!\n\r");
+    PRINTF("Data logger and machine learning for eiQ started!\n\r");
+
+
+    /********************* microphone inicialization not udsed ***************************/
 
     /* Use default setting to init codec */
     if (CODEC_Init(&codecHandle, &boardCodecConfig) != kStatus_Success)
@@ -252,6 +259,11 @@ int main(void)
     SAI_RxEnableInterrupts(DEMO_SAI_PERIPHERAL, kSAI_FIFOErrorInterruptEnable);
     EnableIRQ(DEMO_SAI_TX_IRQ);
     EnableIRQ(DEMO_SAI_RX_IRQ);
+
+
+    /********************************************************************************************/
+
+    /***************************** externa accleroemter inicialization ***************************/
 
     // MPU6050
     MPU6050(MPU6050_ADDRESS_AD0_LOW);
@@ -295,6 +307,35 @@ int main(void)
     	       sensor_data.temperature);
     }
 
+    /********************************************************************************************/
+    /***************************** on board accleroemter inicialization not used ************************
+    status_t result;
+    uint8_t array_addr_size = 0;
+    fxos_config_t config = {0};
+    uint8_t g_sensor_address[] = {0x1CU, 0x1EU, 0x1DU, 0x1FU};
+
+    // Configure the I2C function
+    config.I2C_SendFunc    = BOARD_Accel_I2C_Send;
+    config.I2C_ReceiveFunc = BOARD_Accel_I2C_Receive;
+
+    // Initialize sensor devices
+    array_addr_size = sizeof(g_sensor_address) / sizeof(g_sensor_address[0]);
+    for (int i = 0; i < array_addr_size; i++)
+    {
+        config.slaveAddress = g_sensor_address[i];
+        // Initialize accelerometer sensor
+        result = FXOS_Init(&g_fxosHandle, &config);
+        if (result == kStatus_Success)
+        {
+            break;
+        }
+    }
+
+    if (result != kStatus_Success)
+    {
+        PRINTF("\r\nSensor device initialize failed!\r\n");
+    }
+    /********************************************************************************************/
 
 #if defined DEMO_SDCARD
     /* Init SDcard and FatFs */
@@ -350,8 +391,9 @@ int main(void)
 #if defined DEMO_SDCARD
             case '3':
                 //RecordSDCard(DEMO_SAI_PERIPHERAL, 5);
-                RecordAcceSDCard();
+            	//RecordInternalAcceSDCard();
 
+            	RecordExternalAcceSDCard();
                 break;
 
             case '4':

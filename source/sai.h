@@ -52,7 +52,8 @@ void PlayMarioTheme(I2S_Type *base);
 void RecordSDCard(I2S_Type *base, uint32_t time_s);
 void RecordPlayback(I2S_Type *base, uint32_t time_s);
 void RecordAcceSDCard();
-int ml_anmaly_detection(void);
+void RecordExternalAcceSDCard();
+void RecordInternalAcceSDCard();
 
 FRESULT ClearRecordFolder(void);
 

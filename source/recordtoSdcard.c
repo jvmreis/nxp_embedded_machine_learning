@@ -17,12 +17,10 @@
 #include "fsl_sd.h"
 #include "sai.h"
 #include "MPU6050.h"
+#include "fsl_fxos.h"
 #include <stdio.h>
-
 #include "stdio.h"
-#include "TimeSeries.h"
 
-float data_input[TSS_INPUT_DATA_LEN * TSS_INPUT_DATA_DIM];
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -32,14 +30,12 @@ float data_input[TSS_INPUT_DATA_LEN * TSS_INPUT_DATA_DIM];
             '\0'                                                                                                     \
     }
 
+//AT_NONCACHEABLE_SECTION_ALIGN(uint8_t acccBuff[ACC_BUFFER_SIZE * AXIS_NUM], 4);
+
 #define ACC_BUFFER_SIZE 512
 #define AXIS_NUM 3
 #define SAMPLES_PER_LINE 128  // Number of samples per line before inserting a newline
 #define ACQUISITION_TIME 5 //seconds
-
-//AT_NONCACHEABLE_SECTION_ALIGN(uint8_t acccBuff[ACC_BUFFER_SIZE * AXIS_NUM], 4);
-
-
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -61,6 +57,7 @@ extern volatile uint32_t emptyBlock;
 extern FIL g_fileObject;
 
 extern volatile bool i2c_new_data;
+extern fxos_handle_t g_fxosHandle;
 
 
 /*
@@ -374,7 +371,7 @@ void PrintAccelerometerBuffer(int16_t *ax_buffer, int16_t *ay_buffer,int16_t *az
 /*
  * @brief Records audio to SD card and plays back (demo feature, optional)
  */
-void RecordAcceSDCard()
+void RecordExternalAcceSDCard()
 {
 
     PRINTF("\r\n[INFO] Begin to record accelerometer data...\r\n");
@@ -415,88 +412,49 @@ void RecordAcceSDCard()
     PRINTF("[INFO] Recording complete. Total samples: %d\r\n", collected);
 }
 
-
 /*
- * @brief Collects one full line of acceleration samples for ML input
- *        Each line has SAMPLES_PER_LINE vectors of (X,Y,Z) data
+ * @brief Records audio to SD card and plays back (demo feature, optional)
  */
-void sample_data(float data_buffer[])
+void RecordInternalAcceSDCard()
 {
-    uint32_t sample_idx = 0;  // Conta amostras completas (x,y,z)
+
+    PRINTF("\r\n[INFO] Begin to record accelerometer data...\r\n");
+    fxos_data_t fxos_data;
+
+    uint32_t collected = 0;
+    const uint32_t target_samples =  1000 * ACQUISITION_TIME; // 2 kHz
+
+    static int16_t ax =0,az=0,ay=0;
     uint8_t fifo_buffer[6];
 
-    while (sample_idx < SAMPLES_PER_LINE)
+
+    memset(ax_buffer, 0, sizeof(ax_buffer));
+    memset(ay_buffer, 0, sizeof(ay_buffer));
+    memset(az_buffer, 0, sizeof(az_buffer));
+
+    while (collected < target_samples)
     {
-        if (i2c_new_data)
+
+        while (i2c_new_data && (collected < target_samples))
         {
-            MPU6050_getRAWAcceleration(fifo_buffer, 6);
+             if (FXOS_ReadSensorData(&g_fxosHandle, &fxos_data) != kStatus_Success)
+             {
+                 PRINTF("Failed to read acceleration data!\r\n");
+             }else{
+            	 ax_buffer[collected] = (int16_t)((uint16_t)((uint16_t)fxos_data.accelXMSB << 8) | (uint16_t)fxos_data.accelXLSB) / 4U;
+            	 ay_buffer[collected] = (int16_t)((uint16_t)((uint16_t)fxos_data.accelYMSB << 8) | (uint16_t)fxos_data.accelYLSB) / 4U;
+            	 az_buffer[collected] = (int16_t)((uint16_t)((uint16_t)fxos_data.accelZMSB << 8) | (uint16_t)fxos_data.accelZLSB) / 4U;
+             }
 
-            data_buffer[sample_idx * 3 + 0] = (float)(int16_t)((fifo_buffer[0] << 8) | fifo_buffer[1]); // X
-            data_buffer[sample_idx * 3 + 1] = (float)(int16_t)((fifo_buffer[2] << 8) | fifo_buffer[3]); // Y
-            data_buffer[sample_idx * 3 + 2] = (float)(int16_t)((fifo_buffer[4] << 8) | fifo_buffer[5]); // Z
-
-            sample_idx++;
-            i2c_new_data = false;
+//          sprintf(buffer, "%d %d %d ", (int16_t)ax, (int16_t)ay, (int16_t)az);
+//        	PRINTF("%s", buffer);
+            collected++;
+            i2c_new_data=false;
         }
     }
-}
 
-/*
- * @brief Runs eIQ Time Series anomaly detection
- *        Trains model (if ODL enabled), then continuously predicts
- */
-int ml_anmaly_detection(void)
-{
-    tss_status status;
-    float probability;
-    uint32_t cycleCnt;
+    //fazer o prinf de ("%d %d %d ", ax_buffer, ay_buffer, az_buffer); e a cada 128 amostras tem q dar um /n
+    PrintAccelerometerBuffer(ax_buffer,ay_buffer,az_buffer,target_samples);
 
-#ifdef SUPPORT_ODL
-    status = tss_ad_init(NULL);
-    if (status != TSS_SUCCESS)
-    {
-        /* Handle the initialization failure cases */
-    }
-
-    /*The learning number is customizable, but we recommend the number greater than TSS_RECOMMEND_LEARNING_SAMPLE_NUM to get better results.*/
-    int learning_num = TSS_RECOMMEND_LEARNING_SAMPLE_NUM;
-    for (int i = 0; i < learning_num; i++)
-    {
-        sample_data(data_input);
-        status = tss_ad_learn(data_input);
-        if (status != TSS_LEARNING_NOT_ENOUGH && status != TSS_RECOMMEND_LEARNING_DONE)
-        {
-            /* Handle the learning failure cases */
-        }
-    }
-#else
-    status = tss_ad_init();
-    if (status != TSS_SUCCESS)
-    {
-        /* Handle the initialization failure cases */
-        PRINTF("[DEBUG] ML init error %d\r\n", status);
-
-    }
-#endif
-
-    while (1)
-    {
-        sample_data(data_input);
-        DWT->CYCCNT=0;
-        status = tss_ad_predict(data_input, &probability);
-        cycleCnt = DWT->CYCCNT;
-
-        if (status != TSS_SUCCESS)
-        {
-            /* Handle the prediction failure cases */
-            PRINTF("error %d\r\n");
-
-        }else{
-            PRINTF("anomaly detection %f %d\r\n", probability,cycleCnt);
-        }
-
-        /* Handle the prediction result */
-    }
-
-    return 0;
+    PRINTF("[INFO] Recording complete. Total samples: %d\r\n", collected);
 }
