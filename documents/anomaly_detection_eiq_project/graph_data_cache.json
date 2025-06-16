@@ -1,0 +1,64 @@
+{
+    "over_all_distribution-anomaly_detection_20250521-1423-33809-7_8_9_10_11_12_13_14_15_17_19_21_22_23_24_25_26_27_28": {
+        "md5_info": {
+            "7": "5f0b13b6a3b26e7fc193846345073ddf",
+            "8": "ac02226cf149c8040699c3c46153ddba",
+            "9": "1304113fca0499acdd59cddb49d21de7",
+            "10": "ee78982c9ae0cbeca6fe58743dadae92",
+            "11": "a548154ecc2795e9b7e5e9d7cc5e4465",
+            "12": "37b607cc8eecfea11436bbd6e0a36177",
+            "13": "8aee6bd6d6d6cb8d195afbc886293e07",
+            "14": "54ffbfaa20576d6760cd8f0154af65ed",
+            "15": "f7ed52b96b4d0801eadc38096c369480",
+            "17": "0516178dbdcd170a55c956baea9eb7c6",
+            "19": "65196bc939c7aed16505d6f1f7eb4b0c",
+            "21": "ee7d34d995daaa095a4cd4777b685300",
+            "22": "4cf580717846b9f9fbaca9ce9a710a5a",
+            "23": "b8cf94e410012c8006f1c2e454592d83",
+            "24": "fdbd3e64f4ad7ce097adc6daaeb44b82",
+            "25": "0119c31a5c88dc0e087b3610a51055bb",
+            "26": "5c90da1f8dcba539ef37944608af8b6b",
+            "27": "a426783e469e343441505b5377e6287a",
+            "28": "481c320dcfca6b28bb42f02cf9d7cd92"
+        },
+        "graph_data": [
+            {
+                "name": "Normal",
+                "value": 312
+            },
+            {
+                "name": "Anomaly",
+                "value": 429
+            }
+        ],
+        "label_target_list": [
+            "Normal",
+            "Anomaly"
+        ],
+        "request_data": {
+            "operator": "over_all_distribution",
+            "project_name": "anomaly_detection_20250521-1423-33809",
+            "signals": [
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                17,
+                19,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28
+            ]
+        }
+    }
+}

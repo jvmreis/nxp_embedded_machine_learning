@@ -73,7 +73,7 @@ This example is tailored for applications involving vibration analysis, fault de
 
 **📍 Pin Location on the Board:**  
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jvmreis/nxp_embedded_machine_learning/main/documents/hardware_pin_out.png" width="50%">
+  <img src="https://github.com/jvmreis/nxp_embedded_machine_learning/blob/develop/documents/hardware_pin_out.png" width="50%">
 </p>
 
 ## 🚀 How to Run

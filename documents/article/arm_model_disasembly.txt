@@ -1,0 +1,947 @@
+......... ...
+          tss_ad_predict:
+600023e0:   movw    r12, #40748     @ 0x9f2c
+600023e4:   movt    r12, #8192      @ 0x2000
+600023e8:   ldrb.w  r2, [r12, #8]
+600023ec:   cmp     r2, #0
+600023ee:   beq.w   0x600030d0 <tss_ad_predict+3312>
+600023f2:   ldrb.w  r2, [r12, #9]
+600023f6:   cmp     r2, #0
+600023f8:   beq.w   0x600030d4 <tss_ad_predict+3316>
+600023fc:   b.w     0x6000240c <tss_ad_predict+44>
+60002400:   push    {r0, r1, lr}
+60002402:   add.w   r0, r0, r1
+60002406:   nop.w   
+6000240a:   nop     
+6000240c:   push    {r4, r5, r6, r7, lr}
+6000240e:   sub     sp, #4
+60002410:   vpush   {d8-d9}
+60002414:   b.n     0x60002420 <tss_ad_predict+64>
+60002416:   ldmia.w sp!, {r0, r1, lr}
+6000241a:   b.w     0x600030f8 <tss_ad_predict+3352>
+6000241e:   nop     
+60002420:   movw    lr, #37676      @ 0x932c
+60002424:   movs    r3, #0
+60002426:   movt    lr, #8192       @ 0x2000
+6000242a:   addw    r2, lr, #2388   @ 0x954
+6000242e:   nop     
+60002430:   adds    r4, r0, r3
+60002432:   adds    r3, #192        @ 0xc0
+60002434:   cmp.w   r3, #1536       @ 0x600
+60002438:   vldr    s0, [r4]
+6000243c:   vldr    s2, [r4, #12]
+60002440:   vadd.f32        s4, s0, s2
+60002444:   vsub.f32        s0, s0, s2
+60002448:   vstr    s4, [r2, #-852] @ 0xfffffcac
+6000244c:   vstr    s0, [r2, #-84]  @ 0xffffffac
+60002450:   vldr    s0, [r4, #24]
+60002454:   vldr    s2, [r4, #36]   @ 0x24
+60002458:   vadd.f32        s4, s0, s2
+6000245c:   vsub.f32        s0, s0, s2
+60002460:   vstr    s4, [r2, #-840] @ 0xfffffcb8
+60002464:   vstr    s0, [r2, #-72]  @ 0xffffffb8
+60002468:   vldr    s0, [r4, #48]   @ 0x30
+6000246c:   vldr    s2, [r4, #60]   @ 0x3c
+60002470:   vadd.f32        s4, s0, s2
+60002474:   vsub.f32        s0, s0, s2
+60002478:   vstr    s4, [r2, #-828] @ 0xfffffcc4
+6000247c:   vstr    s0, [r2, #-60]  @ 0xffffffc4
+60002480:   vldr    s0, [r4, #72]   @ 0x48
+60002484:   vldr    s2, [r4, #84]   @ 0x54
+60002488:   vadd.f32        s4, s0, s2
+6000248c:   vsub.f32        s0, s0, s2
+60002490:   vstr    s4, [r2, #-816] @ 0xfffffcd0
+60002494:   vstr    s0, [r2, #-48]  @ 0xffffffd0
+60002498:   vldr    s0, [r4, #96]   @ 0x60
+6000249c:   vldr    s2, [r4, #108]  @ 0x6c
+600024a0:   vadd.f32        s4, s0, s2
+600024a4:   vsub.f32        s0, s0, s2
+600024a8:   vstr    s4, [r2, #-804] @ 0xfffffcdc
+600024ac:   vstr    s0, [r2, #-36]  @ 0xffffffdc
+600024b0:   vldr    s0, [r4, #120]  @ 0x78
+600024b4:   vldr    s2, [r4, #132]  @ 0x84
+600024b8:   vadd.f32        s4, s0, s2
+600024bc:   vsub.f32        s0, s0, s2
+600024c0:   vstr    s4, [r2, #-792] @ 0xfffffce8
+600024c4:   vstr    s0, [r2, #-24]  @ 0xffffffe8
+600024c8:   vldr    s0, [r4, #144]  @ 0x90
+600024cc:   vldr    s2, [r4, #156]  @ 0x9c
+600024d0:   vadd.f32        s4, s0, s2
+600024d4:   vsub.f32        s0, s0, s2
+600024d8:   vstr    s4, [r2, #-780] @ 0xfffffcf4
+600024dc:   vstr    s0, [r2, #-12]
+600024e0:   vldr    s0, [r4, #168]  @ 0xa8
+600024e4:   vldr    s2, [r4, #180]  @ 0xb4
+600024e8:   vadd.f32        s4, s0, s2
+600024ec:   vsub.f32        s0, s0, s2
+600024f0:   vstr    s4, [r2, #-768] @ 0xfffffd00
+600024f4:   vstr    s0, [r2]
+600024f8:   add.w   r2, r2, #96     @ 0x60
+600024fc:   bne.n   0x60002430 <tss_ad_predict+80>
+600024fe:   addw    r2, lr, #2392   @ 0x958
+60002502:   movs    r3, #0
+60002504:   adds    r4, r0, r3
+60002506:   adds    r3, #192        @ 0xc0
+60002508:   cmp.w   r3, #1536       @ 0x600
+6000250c:   vldr    s0, [r4, #4]
+60002510:   vldr    s2, [r4, #16]
+60002514:   vadd.f32        s4, s0, s2
+60002518:   vsub.f32        s0, s0, s2
+6000251c:   vstr    s4, [r2, #-852] @ 0xfffffcac
+60002520:   vstr    s0, [r2, #-84]  @ 0xffffffac
+60002524:   vldr    s0, [r4, #28]
+60002528:   vldr    s2, [r4, #40]   @ 0x28
+6000252c:   vadd.f32        s4, s0, s2
+60002530:   vsub.f32        s0, s0, s2
+60002534:   vstr    s4, [r2, #-840] @ 0xfffffcb8
+60002538:   vstr    s0, [r2, #-72]  @ 0xffffffb8
+6000253c:   vldr    s0, [r4, #52]   @ 0x34
+60002540:   vldr    s2, [r4, #64]   @ 0x40
+60002544:   vadd.f32        s4, s0, s2
+60002548:   vsub.f32        s0, s0, s2
+6000254c:   vstr    s4, [r2, #-828] @ 0xfffffcc4
+60002550:   vstr    s0, [r2, #-60]  @ 0xffffffc4
+60002554:   vldr    s0, [r4, #76]   @ 0x4c
+60002558:   vldr    s2, [r4, #88]   @ 0x58
+6000255c:   vadd.f32        s4, s0, s2
+60002560:   vsub.f32        s0, s0, s2
+60002564:   vstr    s4, [r2, #-816] @ 0xfffffcd0
+60002568:   vstr    s0, [r2, #-48]  @ 0xffffffd0
+6000256c:   vldr    s0, [r4, #100]  @ 0x64
+60002570:   vldr    s2, [r4, #112]  @ 0x70
+60002574:   vadd.f32        s4, s0, s2
+60002578:   vsub.f32        s0, s0, s2
+6000257c:   vstr    s4, [r2, #-804] @ 0xfffffcdc
+60002580:   vstr    s0, [r2, #-36]  @ 0xffffffdc
+60002584:   vldr    s0, [r4, #124]  @ 0x7c
+60002588:   vldr    s2, [r4, #136]  @ 0x88
+6000258c:   vadd.f32        s4, s0, s2
+60002590:   vsub.f32        s0, s0, s2
+60002594:   vstr    s4, [r2, #-792] @ 0xfffffce8
+60002598:   vstr    s0, [r2, #-24]  @ 0xffffffe8
+6000259c:   vldr    s0, [r4, #148]  @ 0x94
+600025a0:   vldr    s2, [r4, #160]  @ 0xa0
+600025a4:   vadd.f32        s4, s0, s2
+600025a8:   vsub.f32        s0, s0, s2
+600025ac:   vstr    s4, [r2, #-780] @ 0xfffffcf4
+600025b0:   vstr    s0, [r2, #-12]
+600025b4:   vldr    s0, [r4, #172]  @ 0xac
+600025b8:   vldr    s2, [r4, #184]  @ 0xb8
+600025bc:   vadd.f32        s4, s0, s2
+600025c0:   vsub.f32        s0, s0, s2
+600025c4:   vstr    s4, [r2, #-768] @ 0xfffffd00
+600025c8:   vstr    s0, [r2]
+600025cc:   add.w   r2, r2, #96     @ 0x60
+600025d0:   bne.n   0x60002504 <tss_ad_predict+292>
+600025d2:   addw    r2, lr, #2396   @ 0x95c
+600025d6:   movs    r3, #0
+600025d8:   adds    r4, r0, r3
+600025da:   adds    r3, #192        @ 0xc0
+600025dc:   cmp.w   r3, #1536       @ 0x600
+600025e0:   vldr    s0, [r4, #8]
+600025e4:   vldr    s2, [r4, #20]
+600025e8:   vadd.f32        s4, s0, s2
+600025ec:   vsub.f32        s0, s0, s2
+600025f0:   vstr    s4, [r2, #-852] @ 0xfffffcac
+600025f4:   vstr    s0, [r2, #-84]  @ 0xffffffac
+600025f8:   vldr    s0, [r4, #32]
+600025fc:   vldr    s2, [r4, #44]   @ 0x2c
+60002600:   vadd.f32        s4, s0, s2
+60002604:   vsub.f32        s0, s0, s2
+60002608:   vstr    s4, [r2, #-840] @ 0xfffffcb8
+6000260c:   vstr    s0, [r2, #-72]  @ 0xffffffb8
+60002610:   vldr    s0, [r4, #56]   @ 0x38
+60002614:   vldr    s2, [r4, #68]   @ 0x44
+60002618:   vadd.f32        s4, s0, s2
+6000261c:   vsub.f32        s0, s0, s2
+60002620:   vstr    s4, [r2, #-828] @ 0xfffffcc4
+60002624:   vstr    s0, [r2, #-60]  @ 0xffffffc4
+60002628:   vldr    s0, [r4, #80]   @ 0x50
+6000262c:   vldr    s2, [r4, #92]   @ 0x5c
+60002630:   vadd.f32        s4, s0, s2
+60002634:   vsub.f32        s0, s0, s2
+60002638:   vstr    s4, [r2, #-816] @ 0xfffffcd0
+6000263c:   vstr    s0, [r2, #-48]  @ 0xffffffd0
+60002640:   vldr    s0, [r4, #104]  @ 0x68
+60002644:   vldr    s2, [r4, #116]  @ 0x74
+60002648:   vadd.f32        s4, s0, s2
+6000264c:   vsub.f32        s0, s0, s2
+60002650:   vstr    s4, [r2, #-804] @ 0xfffffcdc
+60002654:   vstr    s0, [r2, #-36]  @ 0xffffffdc
+60002658:   vldr    s0, [r4, #128]  @ 0x80
+6000265c:   vldr    s2, [r4, #140]  @ 0x8c
+60002660:   vadd.f32        s4, s0, s2
+60002664:   vsub.f32        s0, s0, s2
+60002668:   vstr    s4, [r2, #-792] @ 0xfffffce8
+6000266c:   vstr    s0, [r2, #-24]  @ 0xffffffe8
+60002670:   vldr    s0, [r4, #152]  @ 0x98
+60002674:   vldr    s2, [r4, #164]  @ 0xa4
+60002678:   vadd.f32        s4, s0, s2
+6000267c:   vsub.f32        s0, s0, s2
+60002680:   vstr    s4, [r2, #-780] @ 0xfffffcf4
+60002684:   vstr    s0, [r2, #-12]
+60002688:   vldr    s0, [r4, #176]  @ 0xb0
+6000268c:   vldr    s2, [r4, #188]  @ 0xbc
+60002690:   vadd.f32        s4, s0, s2
+60002694:   vsub.f32        s0, s0, s2
+60002698:   vstr    s4, [r2, #-768] @ 0xfffffd00
+6000269c:   vstr    s0, [r2]
+600026a0:   add.w   r2, r2, #96     @ 0x60
+600026a4:   bne.n   0x600025d8 <tss_ad_predict+504>
+600026a6:   mvn.w   r0, #11
+600026aa:   mvn.w   r2, #15
+600026ae:   movw    r3, #2312       @ 0x908
+600026b2:   vldr    s0, [pc, #4]    @ 0x600026b8 <__arm_cp.1_28>
+600026b6:   b.n     0x600026bc <tss_ad_predict+732>
+          __arm_cp.1_28:
+600026b8:   movs    r0, r0
+600026ba:   subs    r5, #0
+600026bc:   add.w   r4, lr, r0
+600026c0:   adds    r0, #4
+600026c2:   addw    r5, r4, #1548   @ 0x60c
+600026c6:   add.w   r6, r4, #1560   @ 0x618
+600026ca:   add.w   r7, r4, #1944   @ 0x798
+600026ce:   vldr    s2, [r5]
+600026d2:   vldr    s4, [r6]
+600026d6:   vadd.f32        s2, s2, s4
+600026da:   addw    r5, r4, #1572   @ 0x624
+600026de:   addw    r6, r4, #1932   @ 0x78c
+600026e2:   vldr    s4, [r5]
+600026e6:   add.w   r5, r4, #1584   @ 0x630
+600026ea:   vadd.f32        s2, s2, s4
+600026ee:   vldr    s4, [r5]
+600026f2:   addw    r5, r4, #1596   @ 0x63c
+600026f6:   vadd.f32        s2, s2, s4
+600026fa:   vldr    s4, [r5]
+600026fe:   add.w   r5, r4, #1608   @ 0x648
+60002702:   vadd.f32        s2, s2, s4
+60002706:   vldr    s4, [r5]
+6000270a:   addw    r5, r4, #1620   @ 0x654
+6000270e:   vadd.f32        s2, s2, s4
+60002712:   vldr    s4, [r5]
+60002716:   add.w   r5, r4, #1632   @ 0x660
+6000271a:   vadd.f32        s2, s2, s4
+6000271e:   vldr    s4, [r5]
+60002722:   addw    r5, r4, #1644   @ 0x66c
+60002726:   vadd.f32        s2, s2, s4
+6000272a:   vldr    s4, [r5]
+6000272e:   add.w   r5, r4, #1656   @ 0x678
+60002732:   vadd.f32        s2, s2, s4
+60002736:   vldr    s4, [r5]
+6000273a:   addw    r5, r4, #1668   @ 0x684
+6000273e:   vadd.f32        s2, s2, s4
+60002742:   vldr    s4, [r5]
+60002746:   add.w   r5, r4, #1680   @ 0x690
+6000274a:   vadd.f32        s2, s2, s4
+6000274e:   vldr    s4, [r5]
+60002752:   addw    r5, r4, #1692   @ 0x69c
+60002756:   vadd.f32        s2, s2, s4
+6000275a:   vldr    s4, [r5]
+6000275e:   add.w   r5, r4, #1704   @ 0x6a8
+60002762:   vadd.f32        s2, s2, s4
+60002766:   vldr    s4, [r5]
+6000276a:   addw    r5, r4, #1716   @ 0x6b4
+6000276e:   vadd.f32        s2, s2, s4
+60002772:   vldr    s4, [r5]
+60002776:   add.w   r5, r4, #1728   @ 0x6c0
+6000277a:   vadd.f32        s2, s2, s4
+6000277e:   vldr    s4, [r5]
+60002782:   addw    r5, r4, #1740   @ 0x6cc
+60002786:   vadd.f32        s2, s2, s4
+6000278a:   vldr    s4, [r5]
+6000278e:   add.w   r5, r4, #1752   @ 0x6d8
+60002792:   vadd.f32        s2, s2, s4
+60002796:   vldr    s4, [r5]
+6000279a:   addw    r5, r4, #1764   @ 0x6e4
+6000279e:   vadd.f32        s2, s2, s4
+600027a2:   vldr    s4, [r5]
+600027a6:   add.w   r5, r4, #1776   @ 0x6f0
+600027aa:   vadd.f32        s2, s2, s4
+600027ae:   vldr    s4, [r5]
+600027b2:   addw    r5, r4, #1788   @ 0x6fc
+600027b6:   vadd.f32        s2, s2, s4
+600027ba:   vldr    s4, [r5]
+600027be:   add.w   r5, r4, #1800   @ 0x708
+600027c2:   vadd.f32        s2, s2, s4
+600027c6:   vldr    s4, [r5]
+600027ca:   addw    r5, r4, #1812   @ 0x714
+600027ce:   vadd.f32        s2, s2, s4
+600027d2:   vldr    s4, [r5]
+600027d6:   add.w   r5, r4, #1824   @ 0x720
+600027da:   vadd.f32        s2, s2, s4
+600027de:   vldr    s4, [r5]
+600027e2:   addw    r5, r4, #1836   @ 0x72c
+600027e6:   vadd.f32        s2, s2, s4
+600027ea:   vldr    s4, [r5]
+600027ee:   add.w   r5, r4, #1848   @ 0x738
+600027f2:   vadd.f32        s2, s2, s4
+600027f6:   vldr    s4, [r5]
+600027fa:   addw    r5, r4, #1860   @ 0x744
+600027fe:   vadd.f32        s2, s2, s4
+60002802:   vldr    s4, [r5]
+60002806:   add.w   r5, r4, #1872   @ 0x750
+6000280a:   vadd.f32        s2, s2, s4
+6000280e:   vldr    s4, [r5]
+60002812:   addw    r5, r4, #1884   @ 0x75c
+60002816:   vadd.f32        s2, s2, s4
+6000281a:   vldr    s4, [r5]
+6000281e:   add.w   r5, r4, #1896   @ 0x768
+60002822:   vadd.f32        s2, s2, s4
+60002826:   vldr    s4, [r5]
+6000282a:   addw    r5, r4, #1908   @ 0x774
+6000282e:   vadd.f32        s2, s2, s4
+60002832:   vldr    s4, [r5]
+60002836:   add.w   r5, r4, #1920   @ 0x780
+6000283a:   vadd.f32        s2, s2, s4
+6000283e:   vldr    s4, [r5]
+60002842:   add.w   r5, lr, r2
+60002846:   add.w   r2, r2, #16
+6000284a:   vadd.f32        s2, s2, s4
+6000284e:   vmul.f32        s2, s2, s0
+60002852:   vstr    s2, [r5, #16]
+60002856:   vldr    s2, [r6]
+6000285a:   vldr    s4, [r7]
+6000285e:   vadd.f32        s2, s2, s4
+60002862:   addw    r6, r4, #1956   @ 0x7a4
+60002866:   addw    r7, r4, #2316   @ 0x90c
+6000286a:   vldr    s4, [r6]
+6000286e:   add.w   r6, r4, #1968   @ 0x7b0
+60002872:   vadd.f32        s2, s2, s4
+60002876:   vldr    s4, [r6]
+6000287a:   addw    r6, r4, #1980   @ 0x7bc
+6000287e:   vadd.f32        s2, s2, s4
+60002882:   vldr    s4, [r6]
+60002886:   add.w   r6, r4, #1992   @ 0x7c8
+6000288a:   vadd.f32        s2, s2, s4
+6000288e:   vldr    s4, [r6]
+60002892:   addw    r6, r4, #2004   @ 0x7d4
+60002896:   vadd.f32        s2, s2, s4
+6000289a:   vldr    s4, [r6]
+6000289e:   add.w   r6, r4, #2016   @ 0x7e0
+600028a2:   vadd.f32        s2, s2, s4
+600028a6:   vldr    s4, [r6]
+600028aa:   addw    r6, r4, #2028   @ 0x7ec
+600028ae:   vadd.f32        s2, s2, s4
+600028b2:   vldr    s4, [r6]
+600028b6:   add.w   r6, r4, #2040   @ 0x7f8
+600028ba:   vadd.f32        s2, s2, s4
+600028be:   vldr    s4, [r6]
+600028c2:   addw    r6, r4, #2052   @ 0x804
+600028c6:   vadd.f32        s2, s2, s4
+600028ca:   vldr    s4, [r6]
+600028ce:   add.w   r6, r4, #2064   @ 0x810
+600028d2:   vadd.f32        s2, s2, s4
+600028d6:   vldr    s4, [r6]
+600028da:   addw    r6, r4, #2076   @ 0x81c
+600028de:   vadd.f32        s2, s2, s4
+600028e2:   vldr    s4, [r6]
+600028e6:   addw    r6, r4, #2088   @ 0x828
+600028ea:   vadd.f32        s2, s2, s4
+600028ee:   vldr    s4, [r6]
+600028f2:   addw    r6, r4, #2100   @ 0x834
+600028f6:   vadd.f32        s2, s2, s4
+600028fa:   vldr    s4, [r6]
+600028fe:   add.w   r6, r4, #2112   @ 0x840
+60002902:   vadd.f32        s2, s2, s4
+60002906:   vldr    s4, [r6]
+6000290a:   addw    r6, r4, #2124   @ 0x84c
+6000290e:   vadd.f32        s2, s2, s4
+60002912:   vldr    s4, [r6]
+60002916:   addw    r6, r4, #2136   @ 0x858
+6000291a:   vadd.f32        s2, s2, s4
+6000291e:   vldr    s4, [r6]
+60002922:   addw    r6, r4, #2148   @ 0x864
+60002926:   vadd.f32        s2, s2, s4
+6000292a:   vldr    s4, [r6]
+6000292e:   add.w   r6, r4, #2160   @ 0x870
+60002932:   vadd.f32        s2, s2, s4
+60002936:   vldr    s4, [r6]
+6000293a:   addw    r6, r4, #2172   @ 0x87c
+6000293e:   vadd.f32        s2, s2, s4
+60002942:   vldr    s4, [r6]
+60002946:   addw    r6, r4, #2184   @ 0x888
+6000294a:   vadd.f32        s2, s2, s4
+6000294e:   vldr    s4, [r6]
+60002952:   addw    r6, r4, #2196   @ 0x894
+60002956:   vadd.f32        s2, s2, s4
+6000295a:   vldr    s4, [r6]
+6000295e:   add.w   r6, r4, #2208   @ 0x8a0
+60002962:   vadd.f32        s2, s2, s4
+60002966:   vldr    s4, [r6]
+6000296a:   addw    r6, r4, #2220   @ 0x8ac
+6000296e:   vadd.f32        s2, s2, s4
+60002972:   vldr    s4, [r6]
+60002976:   addw    r6, r4, #2232   @ 0x8b8
+6000297a:   vadd.f32        s2, s2, s4
+6000297e:   vldr    s4, [r6]
+60002982:   addw    r6, r4, #2244   @ 0x8c4
+60002986:   vadd.f32        s2, s2, s4
+6000298a:   vldr    s4, [r6]
+6000298e:   add.w   r6, r4, #2256   @ 0x8d0
+60002992:   vadd.f32        s2, s2, s4
+60002996:   vldr    s4, [r6]
+6000299a:   addw    r6, r4, #2268   @ 0x8dc
+6000299e:   vadd.f32        s2, s2, s4
+600029a2:   vldr    s4, [r6]
+600029a6:   addw    r6, r4, #2280   @ 0x8e8
+600029aa:   vadd.f32        s2, s2, s4
+600029ae:   vldr    s4, [r6]
+600029b2:   addw    r6, r4, #2292   @ 0x8f4
+600029b6:   vadd.f32        s2, s2, s4
+600029ba:   vldr    s4, [r6]
+600029be:   add.w   r6, r4, #2304   @ 0x900
+600029c2:   vadd.f32        s2, s2, s4
+600029c6:   vldr    s4, [r6]
+600029ca:   add.w   r6, lr, r3
+600029ce:   add.w   r3, r3, #4
+600029d2:   vadd.f32        s2, s2, s4
+600029d6:   vmul.f32        s2, s2, s0
+600029da:   vstr    s2, [r5, #20]
+600029de:   vldr    s2, [r7]
+600029e2:   vldr    s4, [r6, #4]
+600029e6:   vadd.f32        s2, s2, s4
+600029ea:   addw    r7, r4, #2340   @ 0x924
+600029ee:   vldr    s4, [r7]
+600029f2:   add.w   r7, r4, #2352   @ 0x930
+600029f6:   vadd.f32        s2, s2, s4
+600029fa:   vldr    s4, [r7]
+600029fe:   addw    r7, r4, #2364   @ 0x93c
+60002a02:   vadd.f32        s2, s2, s4
+60002a06:   vldr    s4, [r7]
+60002a0a:   addw    r7, r4, #2376   @ 0x948
+60002a0e:   vadd.f32        s2, s2, s4
+60002a12:   vldr    s4, [r7]
+60002a16:   addw    r7, r4, #2388   @ 0x954
+60002a1a:   vadd.f32        s2, s2, s4
+60002a1e:   vldr    s4, [r7]
+60002a22:   add.w   r7, r4, #2400   @ 0x960
+60002a26:   vadd.f32        s2, s2, s4
+60002a2a:   vldr    s4, [r7]
+60002a2e:   addw    r7, r4, #2412   @ 0x96c
+60002a32:   vadd.f32        s2, s2, s4
+60002a36:   vldr    s4, [r7]
+60002a3a:   addw    r7, r4, #2424   @ 0x978
+60002a3e:   vadd.f32        s2, s2, s4
+60002a42:   vldr    s4, [r7]
+60002a46:   addw    r7, r4, #2436   @ 0x984
+60002a4a:   vadd.f32        s2, s2, s4
+60002a4e:   vldr    s4, [r7]
+60002a52:   add.w   r7, r4, #2448   @ 0x990
+60002a56:   vadd.f32        s2, s2, s4
+60002a5a:   vldr    s4, [r7]
+60002a5e:   addw    r7, r4, #2460   @ 0x99c
+60002a62:   vadd.f32        s2, s2, s4
+60002a66:   vldr    s4, [r7]
+60002a6a:   addw    r7, r4, #2472   @ 0x9a8
+60002a6e:   vadd.f32        s2, s2, s4
+60002a72:   vldr    s4, [r7]
+60002a76:   addw    r7, r4, #2484   @ 0x9b4
+60002a7a:   vadd.f32        s2, s2, s4
+60002a7e:   vldr    s4, [r7]
+60002a82:   add.w   r7, r4, #2496   @ 0x9c0
+60002a86:   vadd.f32        s2, s2, s4
+60002a8a:   vldr    s4, [r7]
+60002a8e:   addw    r7, r4, #2508   @ 0x9cc
+60002a92:   vadd.f32        s2, s2, s4
+60002a96:   vldr    s4, [r7]
+60002a9a:   addw    r7, r4, #2520   @ 0x9d8
+60002a9e:   vadd.f32        s2, s2, s4
+60002aa2:   vldr    s4, [r7]
+60002aa6:   addw    r7, r4, #2532   @ 0x9e4
+60002aaa:   vadd.f32        s2, s2, s4
+60002aae:   vldr    s4, [r7]
+60002ab2:   add.w   r7, r4, #2544   @ 0x9f0
+60002ab6:   vadd.f32        s2, s2, s4
+60002aba:   vldr    s4, [r7]
+60002abe:   addw    r7, r4, #2556   @ 0x9fc
+60002ac2:   vadd.f32        s2, s2, s4
+60002ac6:   vldr    s4, [r7]
+60002aca:   addw    r7, r4, #2568   @ 0xa08
+60002ace:   vadd.f32        s2, s2, s4
+60002ad2:   vldr    s4, [r7]
+60002ad6:   addw    r7, r4, #2580   @ 0xa14
+60002ada:   vadd.f32        s2, s2, s4
+60002ade:   vldr    s4, [r7]
+60002ae2:   addw    r7, r4, #2604   @ 0xa2c
+60002ae6:   addw    r4, r4, #2652   @ 0xa5c
+60002aea:   vadd.f32        s2, s2, s4
+60002aee:   vldr    s4, [r6, #268]  @ 0x10c
+60002af2:   vadd.f32        s2, s2, s4
+60002af6:   vldr    s4, [r7]
+60002afa:   vadd.f32        s2, s2, s4
+60002afe:   vldr    s4, [r6, #292]  @ 0x124
+60002b02:   vadd.f32        s2, s2, s4
+60002b06:   vldr    s4, [r6, #304]  @ 0x130
+60002b0a:   vadd.f32        s2, s2, s4
+60002b0e:   vldr    s4, [r6, #316]  @ 0x13c
+60002b12:   vadd.f32        s2, s2, s4
+60002b16:   vldr    s4, [r4]
+60002b1a:   vadd.f32        s2, s2, s4
+60002b1e:   vldr    s4, [r6, #340]  @ 0x154
+60002b22:   vadd.f32        s2, s2, s4
+60002b26:   vldr    s4, [r6, #352]  @ 0x160
+60002b2a:   vadd.f32        s2, s2, s4
+60002b2e:   vldr    s4, [r6, #364]  @ 0x16c
+60002b32:   vadd.f32        s2, s2, s4
+60002b36:   vmul.f32        s2, s2, s0
+60002b3a:   vstr    s2, [r5, #24]
+60002b3e:   vldr    s2, [r6, #376]  @ 0x178
+60002b42:   vldr    s4, [r6, #388]  @ 0x184
+60002b46:   vadd.f32        s2, s2, s4
+60002b4a:   vldr    s4, [r6, #400]  @ 0x190
+60002b4e:   vadd.f32        s2, s2, s4
+60002b52:   vldr    s4, [r6, #412]  @ 0x19c
+60002b56:   vadd.f32        s2, s2, s4
+60002b5a:   vldr    s4, [r6, #424]  @ 0x1a8
+60002b5e:   vadd.f32        s2, s2, s4
+60002b62:   vldr    s4, [r6, #436]  @ 0x1b4
+60002b66:   vadd.f32        s2, s2, s4
+60002b6a:   vldr    s4, [r6, #448]  @ 0x1c0
+60002b6e:   vadd.f32        s2, s2, s4
+60002b72:   vldr    s4, [r6, #460]  @ 0x1cc
+60002b76:   vadd.f32        s2, s2, s4
+60002b7a:   vldr    s4, [r6, #472]  @ 0x1d8
+60002b7e:   vadd.f32        s2, s2, s4
+60002b82:   vldr    s4, [r6, #484]  @ 0x1e4
+60002b86:   vadd.f32        s2, s2, s4
+60002b8a:   vldr    s4, [r6, #496]  @ 0x1f0
+60002b8e:   vadd.f32        s2, s2, s4
+60002b92:   vldr    s4, [r6, #508]  @ 0x1fc
+60002b96:   vadd.f32        s2, s2, s4
+60002b9a:   vldr    s4, [r6, #520]  @ 0x208
+60002b9e:   vadd.f32        s2, s2, s4
+60002ba2:   vldr    s4, [r6, #532]  @ 0x214
+60002ba6:   vadd.f32        s2, s2, s4
+60002baa:   vldr    s4, [r6, #544]  @ 0x220
+60002bae:   vadd.f32        s2, s2, s4
+60002bb2:   vldr    s4, [r6, #556]  @ 0x22c
+60002bb6:   vadd.f32        s2, s2, s4
+60002bba:   vldr    s4, [r6, #568]  @ 0x238
+60002bbe:   vadd.f32        s2, s2, s4
+60002bc2:   vldr    s4, [r6, #580]  @ 0x244
+60002bc6:   vadd.f32        s2, s2, s4
+60002bca:   vldr    s4, [r6, #592]  @ 0x250
+60002bce:   vadd.f32        s2, s2, s4
+60002bd2:   vldr    s4, [r6, #604]  @ 0x25c
+60002bd6:   vadd.f32        s2, s2, s4
+60002bda:   vldr    s4, [r6, #616]  @ 0x268
+60002bde:   vadd.f32        s2, s2, s4
+60002be2:   vldr    s4, [r6, #628]  @ 0x274
+60002be6:   vadd.f32        s2, s2, s4
+60002bea:   vldr    s4, [r6, #640]  @ 0x280
+60002bee:   vadd.f32        s2, s2, s4
+60002bf2:   vldr    s4, [r6, #652]  @ 0x28c
+60002bf6:   vadd.f32        s2, s2, s4
+60002bfa:   vldr    s4, [r6, #664]  @ 0x298
+60002bfe:   vadd.f32        s2, s2, s4
+60002c02:   vldr    s4, [r6, #676]  @ 0x2a4
+60002c06:   vadd.f32        s2, s2, s4
+60002c0a:   vldr    s4, [r6, #688]  @ 0x2b0
+60002c0e:   vadd.f32        s2, s2, s4
+60002c12:   vldr    s4, [r6, #700]  @ 0x2bc
+60002c16:   vadd.f32        s2, s2, s4
+60002c1a:   vldr    s4, [r6, #712]  @ 0x2c8
+60002c1e:   vadd.f32        s2, s2, s4
+60002c22:   vldr    s4, [r6, #724]  @ 0x2d4
+60002c26:   vadd.f32        s2, s2, s4
+60002c2a:   vldr    s4, [r6, #736]  @ 0x2e0
+60002c2e:   vadd.f32        s2, s2, s4
+60002c32:   vldr    s4, [r6, #748]  @ 0x2ec
+60002c36:   vadd.f32        s2, s2, s4
+60002c3a:   vmul.f32        s2, s2, s0
+60002c3e:   vstr    s2, [r5, #28]
+60002c42:   bne.w   0x600026bc <tss_ad_predict+732>
+60002c46:   vldr    s0, [lr]
+60002c4a:   vldr    s2, [lr, #4]
+60002c4e:   vsub.f32        s4, s2, s0
+60002c52:   vmov.f32        s6, #96 @ 0x3f000000  0.5
+60002c56:   vmov.f32        s8, s0
+60002c5a:   vmov.f32        s10, #8 @ 0x40400000  3.0
+60002c5e:   vmov.f32        s12, #80        @ 0x3e800000  0.250
+60002c62:   vmov.f32        s14, #20        @ 0x40a00000  5.0
+60002c66:   vmov.f32        s1, #24 @ 0x40c00000  6.0
+60002c6a:   vmov.f32        s3, #28 @ 0x40e00000  7.0
+60002c6e:   vmla.f32        s8, s4, s6
+60002c72:   vldr    s4, [lr, #8]
+60002c76:   vmov.f32        s5, #64 @ 0x3e000000  0.125
+60002c7a:   vmov.f32        s7, #34 @ 0x41100000  9.0
+60002c7e:   vmov.f32        s9, #36 @ 0x41200000  10.0
+60002c82:   vmov.f32        s11, #38        @ 0x41300000  11.0
+60002c86:   vmov.f32        s13, #40        @ 0x41400000  12.0
+60002c8a:   add.w   r0, lr, #1536   @ 0x600
+60002c8e:   vsub.f32        s6, s4, s8
+60002c92:   vdiv.f32        s6, s6, s10
+60002c96:   vadd.f32        s6, s8, s6
+60002c9a:   vldr    s8, [lr, #12]
+60002c9e:   vsub.f32        s10, s8, s6
+60002ca2:   vmla.f32        s6, s10, s12
+60002ca6:   vldr    s10, [lr, #16]
+60002caa:   vsub.f32        s12, s10, s6
+60002cae:   vdiv.f32        s12, s12, s14
+60002cb2:   vadd.f32        s6, s6, s12
+60002cb6:   vldr    s12, [lr, #20]
+60002cba:   vsub.f32        s14, s12, s6
+60002cbe:   vdiv.f32        s14, s14, s1
+60002cc2:   vadd.f32        s6, s6, s14
+60002cc6:   vldr    s14, [lr, #24]
+60002cca:   vsub.f32        s1, s14, s6
+60002cce:   vdiv.f32        s1, s1, s3
+60002cd2:   vadd.f32        s6, s6, s1
+60002cd6:   vldr    s1, [lr, #28]
+60002cda:   vsub.f32        s3, s1, s6
+60002cde:   vmla.f32        s6, s3, s5
+60002ce2:   vldr    s3, [lr, #32]
+60002ce6:   vsub.f32        s5, s3, s6
+60002cea:   vdiv.f32        s5, s5, s7
+60002cee:   vadd.f32        s6, s6, s5
+60002cf2:   vldr    s5, [lr, #36]   @ 0x24
+60002cf6:   vsub.f32        s7, s5, s6
+60002cfa:   vdiv.f32        s7, s7, s9
+60002cfe:   vadd.f32        s6, s6, s7
+60002d02:   vldr    s7, [lr, #40]   @ 0x28
+60002d06:   vsub.f32        s9, s7, s6
+60002d0a:   vdiv.f32        s9, s9, s11
+60002d0e:   vadd.f32        s6, s6, s9
+60002d12:   vldr    s9, [lr, #44]   @ 0x2c
+60002d16:   vsub.f32        s11, s9, s6
+60002d1a:   vdiv.f32        s11, s11, s13
+60002d1e:   vadd.f32        s6, s6, s11
+60002d22:   vsub.f32        s0, s0, s6
+60002d26:   vsub.f32        s2, s2, s6
+60002d2a:   vstr    s0, [r0]
+60002d2e:   vsub.f32        s4, s4, s6
+60002d32:   vstr    s2, [r0, #4]
+60002d36:   vsub.f32        s8, s8, s6
+60002d3a:   vstr    s4, [r0, #8]
+60002d3e:   vsub.f32        s10, s10, s6
+60002d42:   vstr    s8, [r0, #12]
+60002d46:   vsub.f32        s12, s12, s6
+60002d4a:   vstr    s10, [r0, #16]
+60002d4e:   vsub.f32        s14, s14, s6
+60002d52:   vstr    s12, [r0, #20]
+60002d56:   vsub.f32        s1, s1, s6
+60002d5a:   vstr    s14, [r0, #24]
+60002d5e:   vsub.f32        s3, s3, s6
+60002d62:   vstr    s1, [r0, #28]
+60002d66:   vsub.f32        s5, s5, s6
+60002d6a:   vstr    s3, [r0, #32]
+60002d6e:   vsub.f32        s7, s7, s6
+60002d72:   vstr    s5, [r0, #36]   @ 0x24
+60002d76:   vsub.f32        s6, s9, s6
+60002d7a:   vstr    s7, [r0, #40]   @ 0x28
+60002d7e:   vabs.f32        s0, s0
+60002d82:   vstr    s6, [r0, #44]   @ 0x2c
+60002d86:   vabs.f32        s2, s2
+60002d8a:   vstr    s0, [lr]
+60002d8e:   vabs.f32        s9, s6
+60002d92:   vldr    s6, [pc, #920]  @ 0x6000312c
+60002d96:   vadd.f32        s0, s0, s6
+60002d9a:   vldr    s6, [pc, #920]  @ 0x60003134
+60002d9e:   vstr    s2, [lr, #4]
+60002da2:   vadd.f32        s2, s2, s6
+60002da6:   vabs.f32        s4, s4
+60002daa:   vldr    s6, [pc, #900]  @ 0x60003130
+60002dae:   vabs.f32        s8, s8
+60002db2:   vstr    s4, [lr, #8]
+60002db6:   vdiv.f32        s0, s0, s6
+60002dba:   vldr    s6, [pc, #892]  @ 0x60003138
+60002dbe:   vdiv.f32        s2, s2, s6
+60002dc2:   vldr    s6, [pc, #888]  @ 0x6000313c
+60002dc6:   vadd.f32        s4, s4, s6
+60002dca:   vldr    s6, [pc, #888]  @ 0x60003144
+60002dce:   vadd.f32        s6, s8, s6
+60002dd2:   vstr    s8, [lr, #12]
+60002dd6:   vabs.f32        s10, s10
+60002dda:   vldr    s8, [pc, #868]  @ 0x60003140
+60002dde:   vabs.f32        s12, s12
+60002de2:   vstr    s10, [lr, #16]
+60002de6:   vdiv.f32        s4, s4, s8
+60002dea:   vldr    s8, [pc, #860]  @ 0x60003148
+60002dee:   vdiv.f32        s6, s6, s8
+60002df2:   vldr    s8, [pc, #856]  @ 0x6000314c
+60002df6:   vadd.f32        s8, s10, s8
+60002dfa:   vldr    s10, [pc, #856] @ 0x60003154
+60002dfe:   vadd.f32        s10, s12, s10
+60002e02:   vstr    s12, [lr, #20]
+60002e06:   vabs.f32        s14, s14
+60002e0a:   vldr    s12, [pc, #836] @ 0x60003150
+60002e0e:   vabs.f32        s1, s1
+60002e12:   vstr    s14, [lr, #24]
+60002e16:   vdiv.f32        s8, s8, s12
+60002e1a:   vldr    s12, [pc, #828] @ 0x60003158
+60002e1e:   vdiv.f32        s12, s10, s12
+60002e22:   vldr    s10, [pc, #824] @ 0x6000315c
+60002e26:   vadd.f32        s10, s14, s10
+60002e2a:   vldr    s14, [pc, #824] @ 0x60003164
+60002e2e:   vstr    s1, [lr, #28]
+60002e32:   vadd.f32        s1, s1, s14
+60002e36:   vabs.f32        s3, s3
+60002e3a:   vldr    s14, [pc, #804] @ 0x60003160
+60002e3e:   vdiv.f32        s14, s10, s14
+60002e42:   vldr    s10, [pc, #804] @ 0x60003168
+60002e46:   vabs.f32        s5, s5
+60002e4a:   vstr    s3, [lr, #32]
+60002e4e:   vdiv.f32        s1, s1, s10
+60002e52:   vldr    s10, [pc, #792] @ 0x6000316c
+60002e56:   vadd.f32        s10, s3, s10
+60002e5a:   vldr    s3, [pc, #792]  @ 0x60003174
+60002e5e:   vabs.f32        s7, s7
+60002e62:   vstr    s5, [lr, #36]   @ 0x24
+60002e66:   vadd.f32        s5, s5, s3
+60002e6a:   vldr    s3, [pc, #772]  @ 0x60003170
+60002e6e:   vdiv.f32        s3, s10, s3
+60002e72:   vldr    s10, [pc, #776] @ 0x6000317c
+60002e76:   vstr    s7, [lr, #40]   @ 0x28
+60002e7a:   vadd.f32        s10, s7, s10
+60002e7e:   vldr    s7, [pc, #760]  @ 0x60003178
+60002e82:   vstr    s9, [lr, #44]   @ 0x2c
+60002e86:   vdiv.f32        s5, s5, s7
+60002e8a:   vldr    s7, [pc, #760]  @ 0x60003184
+60002e8e:   vadd.f32        s9, s9, s7
+60002e92:   vldr    s7, [pc, #748]  @ 0x60003180
+60002e96:   vdiv.f32        s7, s10, s7
+60002e9a:   vldr    s10, [pc, #748] @ 0x60003188
+60002e9e:   vstr    s0, [r12, #12]
+60002ea2:   vdiv.f32        s9, s9, s10
+60002ea6:   vstr    s2, [r12, #16]
+60002eaa:   vstr    s4, [r12, #20]
+60002eae:   vstr    s6, [r12, #24]
+60002eb2:   vstr    s8, [r12, #28]
+60002eb6:   vstr    s12, [r12, #32]
+60002eba:   vstr    s14, [r12, #36] @ 0x24
+60002ebe:   vstr    s1, [r12, #40]  @ 0x28
+60002ec2:   vstr    s3, [r12, #44]  @ 0x2c
+60002ec6:   vstr    s5, [r12, #48]  @ 0x30
+60002eca:   vstr    s7, [r12, #52]  @ 0x34
+60002ece:   vstr    s9, [r12, #56]  @ 0x38
+60002ed2:   ldrd    r2, r0, [r12]
+60002ed6:   movs    r3, #0
+60002ed8:   vldr    s10, [r2]
+60002edc:   vsub.f32        s0, s0, s10
+60002ee0:   vldr    s10, [r2, #4]
+60002ee4:   vsub.f32        s2, s2, s10
+60002ee8:   vldr    s10, [r2, #8]
+60002eec:   vsub.f32        s4, s4, s10
+60002ef0:   vldr    s10, [r2, #12]
+60002ef4:   vsub.f32        s6, s6, s10
+60002ef8:   vldr    s10, [r2, #16]
+60002efc:   vsub.f32        s10, s8, s10
+60002f00:   vldr    s8, [r2, #20]
+60002f04:   vsub.f32        s12, s12, s8
+60002f08:   vldr    s8, [r2, #24]
+60002f0c:   vsub.f32        s14, s14, s8
+60002f10:   vldr    s8, [r2, #28]
+60002f14:   vsub.f32        s1, s1, s8
+60002f18:   vldr    s8, [r2, #32]
+60002f1c:   vsub.f32        s3, s3, s8
+60002f20:   vldr    s8, [r2, #36]   @ 0x24
+60002f24:   vsub.f32        s5, s5, s8
+60002f28:   vldr    s8, [r2, #40]   @ 0x28
+60002f2c:   vsub.f32        s7, s7, s8
+60002f30:   vldr    s8, [r2, #44]   @ 0x2c
+60002f34:   vsub.f32        s9, s9, s8
+60002f38:   adds    r2, #4
+60002f3a:   vldr    s8, [pc, #592]  @ 0x6000318c
+60002f3e:   nop     
+60002f40:   adds    r6, r0, r3
+60002f42:   add.w   r7, r12, r3
+60002f46:   adds    r5, r2, r3
+60002f48:   adds    r3, #12
+60002f4a:   vldr    s11, [r6]
+60002f4e:   vldr    s13, [r6, #48]  @ 0x30
+60002f52:   vmul.f32        s11, s0, s11
+60002f56:   vldr    s15, [r6, #144] @ 0x90
+60002f5a:   vldr    s16, [r6, #148] @ 0x94
+60002f5e:   vldr    s18, [r7, #12]
+60002f62:   cmp     r3, #48 @ 0x30
+60002f64:   vfma.f32        s11, s2, s13
+60002f68:   vldr    s13, [r6, #96]  @ 0x60
+60002f6c:   vfma.f32        s11, s4, s13
+60002f70:   vldr    s13, [r6, #4]
+60002f74:   vmul.f32        s13, s0, s13
+60002f78:   vfma.f32        s11, s6, s15
+60002f7c:   vldr    s15, [r6, #52]  @ 0x34
+60002f80:   vfma.f32        s13, s2, s15
+60002f84:   vldr    s15, [r6, #192] @ 0xc0
+60002f88:   vfma.f32        s11, s10, s15
+60002f8c:   vldr    s15, [r6, #100] @ 0x64
+60002f90:   vfma.f32        s13, s4, s15
+60002f94:   vldr    s15, [r6, #240] @ 0xf0
+60002f98:   vfma.f32        s11, s12, s15
+60002f9c:   vldr    s15, [r6, #8]
+60002fa0:   vmul.f32        s15, s0, s15
+60002fa4:   vfma.f32        s13, s6, s16
+60002fa8:   vldr    s16, [r6, #288] @ 0x120
+60002fac:   vfma.f32        s11, s14, s16
+60002fb0:   vldr    s16, [r6, #56]  @ 0x38
+60002fb4:   vfma.f32        s15, s2, s16
+60002fb8:   vldr    s16, [r6, #196] @ 0xc4
+60002fbc:   vfma.f32        s13, s10, s16
+60002fc0:   vldr    s16, [r6, #336] @ 0x150
+60002fc4:   vfma.f32        s11, s1, s16
+60002fc8:   vldr    s16, [r6, #104] @ 0x68
+60002fcc:   vfma.f32        s15, s4, s16
+60002fd0:   vldr    s16, [r6, #244] @ 0xf4
+60002fd4:   vfma.f32        s13, s12, s16
+60002fd8:   vldr    s16, [r6, #384] @ 0x180
+60002fdc:   vfma.f32        s11, s3, s16
+60002fe0:   vldr    s16, [r6, #152] @ 0x98
+60002fe4:   vfma.f32        s15, s6, s16
+60002fe8:   vldr    s16, [r6, #292] @ 0x124
+60002fec:   vfma.f32        s13, s14, s16
+60002ff0:   vldr    s16, [r6, #432] @ 0x1b0
+60002ff4:   vfma.f32        s11, s5, s16
+60002ff8:   vldr    s16, [r6, #200] @ 0xc8
+60002ffc:   vfma.f32        s15, s10, s16
+60003000:   vldr    s16, [r6, #340] @ 0x154
+60003004:   vfma.f32        s13, s1, s16
+60003008:   vldr    s16, [r6, #480] @ 0x1e0
+6000300c:   vfma.f32        s11, s7, s16
+60003010:   vldr    s16, [r6, #248] @ 0xf8
+60003014:   vfma.f32        s15, s12, s16
+60003018:   vldr    s16, [r6, #388] @ 0x184
+6000301c:   vfma.f32        s13, s3, s16
+60003020:   vldr    s16, [r6, #528] @ 0x210
+60003024:   vfma.f32        s11, s9, s16
+60003028:   vldr    s16, [r6, #296] @ 0x128
+6000302c:   vfma.f32        s15, s14, s16
+60003030:   vldr    s16, [r6, #436] @ 0x1b4
+60003034:   vfma.f32        s13, s5, s16
+60003038:   vldr    s16, [r6, #344] @ 0x158
+6000303c:   vfma.f32        s15, s1, s16
+60003040:   vldr    s16, [r5, #-4]
+60003044:   vsub.f32        s16, s18, s16
+60003048:   vldr    s18, [r6, #484] @ 0x1e4
+6000304c:   vfma.f32        s13, s7, s18
+60003050:   vldr    s18, [r6, #392] @ 0x188
+60003054:   vfma.f32        s15, s3, s18
+60003058:   vfma.f32        s8, s11, s16
+6000305c:   vldr    s11, [r6, #532] @ 0x214
+60003060:   vfma.f32        s13, s9, s11
+60003064:   vldr    s11, [r6, #440] @ 0x1b8
+60003068:   vfma.f32        s15, s5, s11
+6000306c:   vldr    s11, [r5]
+60003070:   vldr    s16, [r7, #16]
+60003074:   vsub.f32        s11, s16, s11
+60003078:   vldr    s16, [r6, #488] @ 0x1e8
+6000307c:   vfma.f32        s15, s7, s16
+60003080:   vfma.f32        s8, s13, s11
+60003084:   vldr    s11, [r6, #536] @ 0x218
+60003088:   vfma.f32        s15, s9, s11
+6000308c:   vldr    s11, [r5, #4]
+60003090:   vldr    s13, [r7, #20]
+60003094:   vsub.f32        s11, s13, s11
+60003098:   vfma.f32        s8, s15, s11
+6000309c:   bne.w   0x60002f40 <tss_ad_predict+2912>
+600030a0:   vldr    s0, [pc, #236]  @ 0x60003190
+600030a4:   vsub.f32        s2, s0, s8
+600030a8:   vcmp.f32        s8, s0
+600030ac:   vmrs    APSR_nzcv, fpscr
+600030b0:   vdiv.f32        s0, s2, s0
+600030b4:   vldr    s2, [pc, #220]  @ 0x60003194
+600030b8:   vadd.f32        s0, s0, s2
+600030bc:   ble.n   0x600030d8 <tss_ad_predict+3320>
+600030be:   vcmp.f32        s0, #0.0
+600030c2:   vmrs    APSR_nzcv, fpscr
+600030c6:   bge.n   0x600030ea <tss_ad_predict+3338>
+600030c8:   vldr    s0, [pc, #192]  @ 0x6000318c
+600030cc:   b.n     0x600030ea <tss_ad_predict+3338>
+600030ce:   nop     
+600030d0:   movs    r0, #1
+600030d2:   bx      lr
+600030d4:   movs    r0, #4
+600030d6:   bx      lr
+600030d8:   vmov.f32        s2, #112        @ 0x3f800000  1.0
+600030dc:   vcmp.f32        s0, s2
+600030e0:   vmrs    APSR_nzcv, fpscr
+600030e4:   ble.n   0x600030ea <tss_ad_predict+3338>
+600030e6:   vmov.f32        s0, s2
+600030ea:   vstr    s0, [r1]
+600030ee:   movs    r0, #0
+600030f0:   vpop    {d8-d9}
+600030f4:   add     sp, #4
+600030f6:   pop     {r4, r5, r6, r7, pc}
+600030f8:   vldr    s0, [r12, #12]
+600030fc:   vldr    s2, [r12, #16]
+60003100:   vldr    s4, [r12, #20]
+60003104:   vldr    s6, [r12, #24]
+60003108:   vldr    s8, [r12, #28]
+6000310c:   vldr    s12, [r12, #32]
+60003110:   vldr    s14, [r12, #36] @ 0x24
+60003114:   vldr    s1, [r12, #40]  @ 0x28
+60003118:   vldr    s3, [r12, #44]  @ 0x2c
+6000311c:   vldr    s5, [r12, #48]  @ 0x30
+60003120:   vldr    s7, [r12, #52]  @ 0x34
+60003124:   vldr    s9, [r12, #56]  @ 0x38
+60003128:   b.n     0x60002ed2 <tss_ad_predict+2802>
+6000312a:   nop     
+6000312c:   adds    r2, r0, #4
+6000312e:   stmia   r5!, {r0, r3, r4, r5, r7}
+60003130:   str     r2, [r3, #16]
+60003132:   cmp     r11, r4
+60003134:   add     r2, sp, #812    @ 0x32c
+60003136:   stmia   r5!, {r0, r1, r3, r4, r5, r7}
+60003138:   ldrb    r6, [r1, #28]
+6000313a:   cmp     r9, r5
+6000313c:   ldr     r1, [r3, #72]   @ 0x48
+6000313e:   stmia   r5!, {r2, r3}
+60003140:   ldr     r5, [r0, #48]   @ 0x30
+60003142:   add     r9, r0
+60003144:   ldr     r7, [pc, #968]  @ (0x60003510 <fp_display+888>)
+60003146:   stmia   r5!, {r2, r3}
+60003148:   str     r4, [sp, #380]  @ 0x17c
+6000314a:   add     r8, r0
+6000314c:   stmia   r7!, {r4, r5, r6}
+6000314e:   stmia   r5!, {r3, r4, r6, r7}
+60003150:   cfstr32 mvfx4, [r6], #-672      @ 0xfffffd60
+60003154:   ldc2l   5, cr12, [lr], {217}    @ 0xd9
+60003158:   movs    r4, #150        @ 0x96
+6000315a:   cmp     r10, r5
+6000315c:   subs    r5, #193        @ 0xc1
+6000315e:   stmia   r5!, {r2, r3}
+60003160:   add     r2, pc, #832    @ (adr r2, 0x600034a4 <fp_display+780>)
+60003162:   add     r11, r0
+60003164:   adds    r7, #61 @ 0x3d
+60003166:   stmia   r5!, {r2, r3}
+60003168:   ldmia   r0!, {r4, r6}
+6000316a:   add     r9, r0
+6000316c:   asrs    r2, r7, #1
+6000316e:   stmia   r5!, {r0, r1, r3, r4, r5, r6, r7}
+60003170:   add     r0, pc, #292    @ (adr r0, 0x60003298 <fp_display+256>)
+60003172:   cmp     pc, r6
+60003174:   strb    r0, [r6, #19]
+60003176:   stmia   r5!, {r2, r3, r4, r5, r6, r7}
+60003178:   movs    r5, #79 @ 0x4f
+6000317a:   cmp     r12, r6
+6000317c:   adds    r5, #54 @ 0x36
+6000317e:   stmia   r5!, {r2, r3}
+60003180:   ldrb    r6, [r2, #27]
+60003182:   add     r10, r0
+60003184:   blx     0x60f6bba0
+60003188:   movs    r3, #19
+6000318a:   add     r7, pc
+6000318c:   movs    r0, r0
+6000318e:   movs    r0, r0
+60003190:   subs    r7, #30
+60003192:   orrs    r6, r0
+60003194:   str     r6, [r4, #100]  @ 0x64
+60003196:   subs    r7, #102        @ 0x66
+          fp_display:
+60003198:   stmdb   sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
+6000319c:   vpush   {d8-d12}
+600031a0:   vldr    d8, [r1]
+600031a4:   mov     r5, r2
+600031a6:   mov     r8, r3
+600031a8:   movw    r3, #32752      @ 0x7ff0
+600031ac:   sub     sp, #84 @ 0x54
+600031ae:   vmov    r2, s17
+600031b2:   mov     r9, r0
+600031b4:   ldr.w   r11, [sp, #164] @ 0xa4
+600031b8:   bics.w  r3, r3, r2, lsr #16
+600031bc:   vstr    s17, [sp, #16]
+600031c0:   bne.n   0x60003208 <fp_display+112>
+600031c2:   movs    r3, #0
+600031c4:   strb    r3, [r5, #3]
+600031c6:   ubfx    r3, r2, #0, #20
+600031ca:   vmov    r2, s16
+......... ...

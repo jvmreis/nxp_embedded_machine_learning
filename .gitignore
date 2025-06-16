@@ -16,10 +16,6 @@
 *.gch
 *.pch
 
-# Libraries
-*.lib
-*.la
-*.lo
 
 # Shared objects (inc. Windows DLLs)
 *.dll
