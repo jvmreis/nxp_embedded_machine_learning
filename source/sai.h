@@ -22,7 +22,7 @@
 #define DEMO_SDCARD (1U)
 #endif
 /* demo audio sample rate */
-#define DEMO_AUDIO_SAMPLE_RATE (kSAI_SampleRate16KHz)
+#define DEMO_AUDIO_SAMPLE_RATE (kSAI_SampleRate8KHz)
 /* demo audio master clock */
 #if (defined FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER && FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) || \
     (defined FSL_FEATURE_PCC_HAS_SAI_DIVIDER && FSL_FEATURE_PCC_HAS_SAI_DIVIDER)
@@ -54,6 +54,7 @@ void RecordPlayback(I2S_Type *base, uint32_t time_s);
 void RecordAcceSDCard();
 void RecordExternalAcceSDCard();
 void RecordInternalAcceSDCard();
+void RecordMicrophoneSDCard(I2S_Type *base, uint32_t time_s);
 
 FRESULT ClearRecordFolder(void);
 

@@ -380,7 +380,9 @@ int main(void)
                 DA7212_ChangeInput((da7212_handle_t *)((uint32_t)(codecHandle.codecDevHandle)), kDA7212_Input_AUX);
 #endif
                 //RecordPlayback(DEMO_SAI_PERIPHERAL, 30);
-            	ml_anmaly_detection();
+            	//ml_anmaly_detection();
+            	//RecordExternalAcceSDCard();
+            	RecordMicrophoneSDCard(DEMO_SAI_PERIPHERAL, 5);
 
                 break;
             case '2':
@@ -394,10 +396,13 @@ int main(void)
                 break;
 #if defined DEMO_SDCARD
             case '3':
-                //RecordSDCard(DEMO_SAI_PERIPHERAL, 5);
+
+            	RecordSDCard(DEMO_SAI_PERIPHERAL, 5);
+
+            	//RecordMicrophoneSDCard(DEMO_SAI_PERIPHERAL, 5);
             	//RecordInternalAcceSDCard();
 
-            	RecordExternalAcceSDCard();
+            	//RecordExternalAcceSDCard();
                 break;
 
             case '4':

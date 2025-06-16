@@ -336,7 +336,6 @@ void PrintAccelerometerBuffer(int16_t *ax_buffer, int16_t *ay_buffer,int16_t *az
 
 	char buffer[100];
 	FRESULT error;
-	static const TCHAR csvpathBuffer[] = DEMO_RECORD_CSV_PATH;
 	static int file_counter = 0;
 	char filename[64];
 
@@ -458,3 +457,247 @@ void RecordInternalAcceSDCard()
 
     PRINTF("[INFO] Recording complete. Total samples: %d\r\n", collected);
 }
+
+//void RecordMicrophoneSDCard(I2S_Type *base, uint32_t time_s){
+//
+//	char buffer[100];
+//	FRESULT error;
+//	static int file_counter = 0;
+//	char filename[64];
+//
+//
+//    uint32_t i            = 0;
+//    uint32_t bytesWritten = 0;
+//    uint32_t txindex      = 0;
+//    uint32_t rxindex      = 0;
+//    sai_transfer_t xfer                = {0};
+//
+//    /* Clear the status */
+//    isrxFinished = false;
+//    receiveCount = 0;
+//    istxFinished = false;
+//    sendCount    = 0;
+//    sdcard       = true;
+//
+//	// Gera nome como: "0:/record/accele_0.csv"
+//	sprintf(filename, "%c:/record/micro_%d.csv", SDDISK + '0', file_counter++);
+//
+//	error = f_open(&g_fileObject, filename,(FA_WRITE | FA_READ | FA_CREATE_ALWAYS));
+//
+//	if (error) {
+//		PRINTF("[ERROR] Failed to open CSV file. Error code: %d\r\n", error);
+//		return;
+//	}
+//
+//
+//    /* Reset SAI internal logic */
+//    SAI_TxSoftwareReset(base, kSAI_ResetTypeSoftware);
+//    SAI_RxSoftwareReset(base, kSAI_ResetTypeSoftware);
+//
+//    /* Start to record */
+//    beginCount = time_s * DEMO_AUDIO_SAMPLE_RATE * 2U * 2U / BUFFER_SIZE;
+//
+//    /* Start record first */
+//    memset(audioBuff, 0, BUFFER_SIZE * BUFFER_NUM);
+//    xfer.dataSize = BUFFER_SIZE;
+//    for (i = 0; i < BUFFER_NUM; i++)
+//    {
+//        xfer.data = audioBuff + i * BUFFER_SIZE;
+//        SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
+//    }
+//
+//    emptyBlock = 0;
+//    while ((isrxFinished != true) || (fullBlock != 0))
+//    {
+//        if (fullBlock > 0)
+//        {
+//
+//    		for (int i = 0; i < BUFFER_SIZE; i++) {
+//
+//           // error = f_write(&g_fileObject, audioBuff + txindex * BUFFER_SIZE, BUFFER_SIZE, (UINT *)&bytesWritten);
+//            	if ((i + 1) % BUFFER_SIZE == 0) {
+//            		sprintf(buffer, "%d \n", (int8_t)(audioBuff[i]+ txindex * BUFFER_SIZE));
+//            		//PRINTF("%s", buffer);
+//            		f_printf(&g_fileObject, "%s", buffer);
+//            		} else {
+//            		sprintf(buffer, "%d ", (int8_t)(audioBuff[i]+ txindex * BUFFER_SIZE));
+//            		//PRINTF("%s", buffer);
+//            		f_printf(&g_fileObject, "%s", buffer);
+//            		}
+//    		}
+//
+//            txindex = (txindex + 1U) % BUFFER_NUM;
+//            fullBlock--;
+//            emptyBlock++;
+//        }
+//
+//        if ((emptyBlock > 0) && (isrxFinished == false))
+//        {
+//            xfer.data = audioBuff + rxindex * BUFFER_SIZE;
+//            rxindex   = (rxindex + 1U) % BUFFER_NUM;
+//            SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
+//            emptyBlock--;
+//        }
+//    }
+//    f_close(&g_fileObject);
+//    PRINTF("\r\nRecord is finished!\r\n");
+//}
+
+
+void RecordMicrophoneSDCard(I2S_Type *base, uint32_t time_s){
+
+	char buffer[4096];
+	FRESULT error;
+	static int file_counter = 0;
+	char filename[64];
+
+
+    uint32_t i            = 0;
+    uint32_t bytesWritten = 0;
+    uint32_t txindex      = 0;
+    uint32_t rxindex      = 0;
+    sai_transfer_t xfer                = {0};
+
+    /* Clear the status */
+    isrxFinished = false;
+    receiveCount = 0;
+    istxFinished = false;
+    sendCount    = 0;
+    sdcard       = true;
+
+	// Gera nome como: "0:/record/accele_0.csv"
+	sprintf(filename, "%c:/record/micro_%d.csv", SDDISK + '0', file_counter++);
+
+	error = f_open(&g_fileObject, filename,(FA_WRITE | FA_READ | FA_CREATE_ALWAYS));
+
+	if (error) {
+		PRINTF("[ERROR] Failed to open CSV file. Error code: %d\r\n", error);
+		return;
+	}
+
+
+    /* Reset SAI internal logic */
+    SAI_TxSoftwareReset(base, kSAI_ResetTypeSoftware);
+    SAI_RxSoftwareReset(base, kSAI_ResetTypeSoftware);
+
+    /* Start to record */
+    beginCount = time_s * DEMO_AUDIO_SAMPLE_RATE * 2U * 2U / BUFFER_SIZE;
+
+    /* Start record first */
+    memset(audioBuff, 0, BUFFER_SIZE * BUFFER_NUM);
+    xfer.dataSize = BUFFER_SIZE;
+    for (i = 0; i < BUFFER_NUM; i++)
+    {
+        xfer.data = audioBuff + i * BUFFER_SIZE;
+        SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
+    }
+
+    emptyBlock = 0;
+    while ((isrxFinished != true) || (fullBlock != 0))
+    {
+        if (fullBlock > 0)
+        {
+
+            char *ptr = buffer;
+            int offset = txindex * BUFFER_SIZE;
+
+            for (int i = 0; i < BUFFER_SIZE; i++) {
+                int8_t sample = (int8_t)(audioBuff[offset + i]);
+                ptr += sprintf(ptr, "%d", sample);
+                *ptr++ = ((i + 1) % BUFFER_SIZE == 0) ? '\n' : ' ';
+            }
+
+            *ptr = '\0';
+            f_printf(&g_fileObject, "%s", buffer);
+            //PRINTF("%s", buffer);
+
+
+            txindex = (txindex + 1U) % BUFFER_NUM;
+            fullBlock--;
+            emptyBlock++;
+        }
+
+        if ((emptyBlock > 0) && (isrxFinished == false))
+        {
+            xfer.data = audioBuff + rxindex * BUFFER_SIZE;
+            rxindex   = (rxindex + 1U) % BUFFER_NUM;
+            SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
+            emptyBlock--;
+        }
+    }
+    f_close(&g_fileObject);
+    PRINTF("\r\nRecord is finished!\r\n");
+}
+
+//void RecordMicrophoneSDCard(I2S_Type *base, uint32_t time_s) {
+//    static int file_counter = 0;
+//    char filename[64];
+//    char buffer[4096];  // Aumente esse tamanho se necessário
+//
+//    FRESULT error;
+//
+//    // Gera nome do arquivo: "0:/record/micro_X.csv"
+//    sprintf(filename, "%c:/record/micro_%d.csv", SDDISK + '0', file_counter++);
+//
+//    error = f_open(&g_fileObject, filename, (FA_WRITE | FA_READ | FA_CREATE_ALWAYS));
+//    if (error) {
+//        PRINTF("[ERROR] Failed to open CSV file. Error code: %d\r\n", error);
+//        return;
+//    }
+//
+//    // Reset status
+//    isrxFinished = false;
+//    receiveCount = 0;
+//    istxFinished = false;
+//    sendCount    = 0;
+//    sdcard       = true;
+//
+//    // Reset SAI
+//    SAI_TxSoftwareReset(base, kSAI_ResetTypeSoftware);
+//    SAI_RxSoftwareReset(base, kSAI_ResetTypeSoftware);
+//
+//    // Inicialização da gravação
+//    beginCount = time_s * DEMO_AUDIO_SAMPLE_RATE * 2U * 2U / BUFFER_SIZE;
+//
+//    memset(audioBuff, 0, BUFFER_SIZE * BUFFER_NUM);
+//    sai_transfer_t xfer = { .dataSize = BUFFER_SIZE };
+//
+//    for (uint32_t i = 0; i < BUFFER_NUM; i++) {
+//        xfer.data = audioBuff + i * BUFFER_SIZE;
+//        SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
+//    }
+//
+//    uint32_t txindex = 0, rxindex = 0;
+//    emptyBlock = 0;
+//
+//    while (!isrxFinished || fullBlock > 0) {
+//        if (fullBlock > 0) {
+//            char *ptr = buffer;
+//            int offset = txindex * BUFFER_SIZE;
+//
+//            for (int i = 0; i < BUFFER_SIZE; i++) {
+//                int8_t sample = (int8_t)(audioBuff[offset + i]);
+//                ptr += sprintf(ptr, "%d", sample);
+//                *ptr++ = ((i + 1) % BUFFER_SIZE == 0) ? '\n' : ' ';
+//            }
+//
+//            *ptr = '\0';
+//            f_printf(&g_fileObject, "%s", buffer);
+//
+//            txindex = (txindex + 1U) % BUFFER_NUM;
+//            fullBlock--;
+//            emptyBlock++;
+//        }
+//
+//        if (emptyBlock > 0 && !isrxFinished) {
+//            xfer.data = audioBuff + rxindex * BUFFER_SIZE;
+//            rxindex = (rxindex + 1U) % BUFFER_NUM;
+//            SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
+//            emptyBlock--;
+//        }
+//    }
+//
+//    f_close(&g_fileObject);
+//    PRINTF("\r\nRecord is finished!\r\n");
+//}
+
