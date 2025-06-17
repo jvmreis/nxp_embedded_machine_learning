@@ -356,7 +356,9 @@ int main(void)
         PRINTF("\r%d. Run Machine Learning Model \r\n", userItem++);
         PRINTF("\r%d. Exclude files \r\n", userItem++);
 #if defined DEMO_SDCARD
-        PRINTF("\r%d. Record to SDcard Accelerometer Data \r\n", userItem++);
+        PRINTF("\r%d. Record to SDcard Ext Accelerometer Data \r\n", userItem++);
+        PRINTF("\r%d. Record to SDcard Microphone Data \r\n", userItem++);
+
 #endif /* DEMO_SDCARD */
 #if defined DIG_MIC
         PRINTF("\r%d. Record using digital mic and playback at the same time\r\n", userItem++);
@@ -375,14 +377,9 @@ int main(void)
         switch (input)
         {
             case '1':
-#if defined DIG_MIC
-                /* Set the audio input source to AUX */
-                DA7212_ChangeInput((da7212_handle_t *)((uint32_t)(codecHandle.codecDevHandle)), kDA7212_Input_AUX);
-#endif
-                //RecordPlayback(DEMO_SAI_PERIPHERAL, 30);
-            	//ml_anmaly_detection();
-            	//RecordExternalAcceSDCard();
-            	RecordMicrophoneSDCard(DEMO_SAI_PERIPHERAL, 5);
+
+            	ml_anmaly_detection();
+            	//ml_classification(void)
 
                 break;
             case '2':
@@ -397,16 +394,20 @@ int main(void)
 #if defined DEMO_SDCARD
             case '3':
 
-            	RecordSDCard(DEMO_SAI_PERIPHERAL, 5);
-
-            	//RecordMicrophoneSDCard(DEMO_SAI_PERIPHERAL, 5);
             	//RecordInternalAcceSDCard();
-
-            	//RecordExternalAcceSDCard();
+            	RecordExternalAcceSDCard();
                 break;
 
             case '4':
-            	ml_anmaly_detection();
+
+#if defined DIG_MIC
+                /* Set the audio input source to AUX */
+                DA7212_ChangeInput((da7212_handle_t *)((uint32_t)(codecHandle.codecDevHandle)), kDA7212_Input_AUX);
+#endif
+            	RecordMicrophoneSDCard(DEMO_SAI_PERIPHERAL, 5);
+                //RecordPlayback(DEMO_SAI_PERIPHERAL, 30);
+            	//RecordSDCard(DEMO_SAI_PERIPHERAL, 5);
+
                 break;
 #endif
 #if defined DIG_MIC
