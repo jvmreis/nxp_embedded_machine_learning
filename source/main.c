@@ -353,7 +353,8 @@ int main(void)
     PRINTF("\n\rPlease choose the option :\r\n");
     while (1)
     {
-        PRINTF("\r%d. Run Machine Learning Model \r\n", userItem++);
+        PRINTF("\r%d. Anomaly detection embedded Machine Learning Model \r\n", userItem++);
+        PRINTF("\r%d. Classification embedded Machine Learning Model \r\n", userItem++);
         PRINTF("\r%d. Exclude files \r\n", userItem++);
 #if defined DEMO_SDCARD
         PRINTF("\r%d. Record to SDcard Ext Accelerometer Data \r\n", userItem++);
@@ -382,7 +383,14 @@ int main(void)
             	//ml_classification(void)
 
                 break;
+
             case '2':
+
+            	ml_classification();
+
+                break;
+
+            case '3':
                 //PlaybackSine(DEMO_SAI_PERIPHERAL, 250, 5);
                 if (ClearRecordFolder() != FR_OK)
                 {
@@ -392,13 +400,13 @@ int main(void)
 
                 break;
 #if defined DEMO_SDCARD
-            case '3':
+            case '4':
 
             	//RecordInternalAcceSDCard();
             	RecordExternalAcceSDCard();
                 break;
 
-            case '4':
+            case '5':
 
 #if defined DIG_MIC
                 /* Set the audio input source to AUX */
