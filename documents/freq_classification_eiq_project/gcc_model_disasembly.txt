@@ -1,0 +1,422 @@
+          tss_cls_predict_freqModel:
+60014508:   stmdb   sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
+6001450c:   ldr     r4, [pc, #876]  @ (0x6001487c <tss_cls_predict_freqModel+884>)
+6001450e:   vpush   {d8-d10}
+60014512:   ldrb    r6, [r4, #0]
+60014514:   sub     sp, #36 @ 0x24
+60014516:   str     r2, [sp, #24]
+60014518:   cmp     r6, #0
+6001451a:   beq.w   0x6001471c <tss_cls_predict_freqModel+532>
+6001451e:   ldrb    r2, [r4, #1]
+60014520:   cmp     r2, #0
+60014522:   beq.w   0x600149a0 <tss_cls_predict_freqModel+1176>
+60014526:   mov     r3, r0
+60014528:   bl      0x60014498 <func0>
+6001452c:   str     r0, [sp, #20]
+6001452e:   cmp     r0, #0
+60014530:   bne.w   0x60014720 <tss_cls_predict_freqModel+536>
+60014534:   b.w     0x60014544 <tss_cls_predict_freqModel+60>
+60014538:   push    {r0, r1, lr}
+6001453a:   add.w   r0, r0, r1
+6001453e:   nop.w   
+60014542:   nop     
+60014544:   mov     r5, r1
+60014546:   b.n     0x60014552 <tss_cls_predict_freqModel+74>
+60014548:   ldmia.w sp!, {r0, r1, lr}
+6001454c:   b.w     0x60014814 <tss_cls_predict_freqModel+780>
+60014550:   nop     
+60014552:   ldr.w   r9, [pc, #852]  @ 0x600148a8 <tss_cls_predict_freqModel+928>
+60014556:   movs    r7, #0
+60014558:   ldr.w   r8, [pc, #820]  @ 0x60014890 <tss_cls_predict_freqModel+904>
+6001455c:   mov.w   r2, #256        @ 0x100
+60014560:   ldr     r1, [pc, #796]  @ (0x60014880 <tss_cls_predict_freqModel+888>)
+60014562:   mov     r6, r7
+60014564:   str.w   r3, [r9]
+60014568:   add.w   r11, r8, #1016  @ 0x3f8
+6001456c:   movs    r3, #1
+6001456e:   str     r5, [sp, #28]
+60014570:   vldr    s17, [pc, #784] @ 0x60014884 <tss_cls_predict_freqModel+892>
+60014574:   mov     r5, r7
+60014576:   vldr    s19, [pc, #784] @ 0x60014888 <tss_cls_predict_freqModel+896>
+6001457a:   vldr    s18, [pc, #784] @ 0x6001488c <tss_cls_predict_freqModel+900>
+6001457e:   str.w   r1, [r9, #12]
+60014582:   strd    r2, r3, [r9, #4]
+60014586:   lsls    r2, r6, #2
+60014588:   ldr.w   r7, [r9]
+6001458c:   ldr.w   r3, [r9, #8]
+60014590:   str     r2, [sp, #16]
+60014592:   add.w   r0, r7, r6, lsl #2
+60014596:   vldr    s16, [pc, #748] @ 0x60014884 <tss_cls_predict_freqModel+892>
+6001459a:   movs    r2, #0
+6001459c:   lsls    r4, r3, #2
+6001459e:   adds    r2, #1
+600145a0:   vldr    s15, [r0]
+600145a4:   add     r0, r4
+600145a6:   vmov    s14, r2
+600145aa:   vsub.f32        s15, s15, s16
+600145ae:   cmp     r2, #128        @ 0x80
+600145b0:   vcvt.f32.s32    s13, s14
+600145b4:   vdiv.f32        s14, s15, s13
+600145b8:   vadd.f32        s16, s16, s14
+600145bc:   bne.n   0x6001459e <tss_cls_predict_freqModel+150>
+600145be:   adds    r2, r7, r5
+600145c0:   vmov.f32        s13, s17
+600145c4:   adds    r0, r3, r6
+600145c6:   vldr    s15, [r2]
+600145ca:   add.w   r0, r7, r0, lsl #2
+600145ce:   ldr     r2, [pc, #704]  @ (0x60014890 <tss_cls_predict_freqModel+904>)
+600145d0:   vsub.f32        s15, s15, s16
+600145d4:   vfms.f32        s13, s15, s17
+600145d8:   vadd.f32        s15, s15, s17
+600145dc:   vldr    s14, [r0]
+600145e0:   adds    r2, #8
+600145e2:   vldr    s12, [r2, #4]
+600145e6:   add     r0, r4
+600145e8:   vsub.f32        s14, s14, s16
+600145ec:   cmp     r11, r2
+600145ee:   vldr    s11, [r2]
+600145f2:   vfms.f32        s13, s12, s14
+600145f6:   vfma.f32        s15, s11, s14
+600145fa:   bne.n   0x600145dc <tss_cls_predict_freqModel+212>
+600145fc:   mov.w   r10, #1
+60014600:   add.w   r4, r10, #4294967295
+60014604:   vmov    r2, s13
+60014608:   mla     r4, r3, r4, r6
+6001460c:   vmov    r3, s15
+60014610:   bic.w   r2, r2, #2147483648     @ 0x80000000
+60014614:   bic.w   r3, r3, #2147483648     @ 0x80000000
+60014618:   add.w   r4, r1, r4, lsl #2
+6001461c:   cmp     r3, r2
+6001461e:   bcc.n   0x60014626 <tss_cls_predict_freqModel+286>
+60014620:   mov     r0, r2
+60014622:   mov     r2, r3
+60014624:   mov     r3, r0
+60014626:   cmp.w   r3, #2139095040 @ 0x7f800000
+6001462a:   vmov    s15, r2
+6001462e:   vmov    s20, r3
+60014632:   beq.n   0x600146b8 <tss_cls_predict_freqModel+432>
+60014634:   cmp.w   r2, #2139095040 @ 0x7f800000
+60014638:   bcs.w   0x6001485a <tss_cls_predict_freqModel+850>
+6001463c:   cmp     r3, #0
+6001463e:   beq.w   0x6001485a <tss_cls_predict_freqModel+850>
+60014642:   subs    r0, r2, r3
+60014644:   cmp.w   r0, #209715200  @ 0xc800000
+60014648:   bcs.w   0x6001485a <tss_cls_predict_freqModel+850>
+6001464c:   cmp.w   r2, #1568669696 @ 0x5d800000
+60014650:   bcc.w   0x60014860 <tss_cls_predict_freqModel+856>
+60014654:   vmul.f32        s15, s15, s18
+60014658:   vmul.f32        s20, s20, s18
+6001465c:   vmov.f32        s21, s19
+60014660:   vmov    r0, s15
+60014664:   bl      0x600163b4 <__aeabi_f2d>
+60014668:   mov     r2, r0
+6001466a:   mov     r3, r1
+6001466c:   vmov    r0, s20
+60014670:   strd    r2, r3, [sp, #8]
+60014674:   bl      0x600163b4 <__aeabi_f2d>
+60014678:   ldrd    r2, r3, [sp, #8]
+6001467c:   strd    r0, r1, [sp]
+60014680:   mov     r0, r2
+60014682:   mov     r1, r3
+60014684:   bl      0x60015f9c <__aeabi_dmul>
+60014688:   ldrd    r2, r3, [sp]
+6001468c:   strd    r0, r1, [sp, #8]
+60014690:   mov     r0, r2
+60014692:   mov     r1, r3
+60014694:   bl      0x60015f9c <__aeabi_dmul>
+60014698:   mov     r2, r0
+6001469a:   mov     r3, r1
+6001469c:   ldrd    r0, r1, [sp, #8]
+600146a0:   bl      0x60016248 <__aeabi_dadd>
+600146a4:   bl      0x6001635c <__aeabi_d2f>
+600146a8:   vmov    s0, r0
+600146ac:   bl      0x6001b9ea <sqrtf>
+600146b0:   vmul.f32        s20, s0, s21
+600146b4:   ldr.w   r1, [r9, #12]
+600146b8:   add.w   r10, r10, #1
+600146bc:   vstr    s20, [r4]
+600146c0:   cmp.w   r10, #129       @ 0x81
+600146c4:   beq.n   0x6001472c <tss_cls_predict_freqModel+548>
+600146c6:   ldr.w   r2, [r9]
+600146ca:   vmov.f32        s13, s17
+600146ce:   ldr     r0, [sp, #16]
+600146d0:   mov     r7, r10
+600146d2:   ldr.w   r3, [r9, #8]
+600146d6:   movs    r4, #127        @ 0x7f
+600146d8:   adds    r0, r2, r0
+600146da:   mov.w   lr, r3, lsl #2
+600146de:   vldr    s15, [r0]
+600146e2:   adds    r0, r6, r3
+600146e4:   vsub.f32        s15, s15, s16
+600146e8:   add.w   r2, r2, r0, lsl #2
+600146ec:   vfms.f32        s13, s15, s17
+600146f0:   vadd.f32        s15, s15, s17
+600146f4:   uxtb    r0, r7
+600146f6:   vldr    s14, [r2]
+600146fa:   subs    r4, #1
+600146fc:   add     r2, lr
+600146fe:   add.w   r12, r8, r0, lsl #3
+60014702:   vsub.f32        s14, s14, s16
+60014706:   add     r7, r10
+60014708:   vldr    s11, [r12, #4]
+6001470c:   vldr    s12, [r12]
+60014710:   vfms.f32        s13, s14, s11
+60014714:   vfma.f32        s15, s14, s12
+60014718:   bne.n   0x600146f4 <tss_cls_predict_freqModel+492>
+6001471a:   b.n     0x60014600 <tss_cls_predict_freqModel+248>
+6001471c:   movs    r3, #1
+6001471e:   str     r3, [sp, #20]
+60014720:   ldr     r0, [sp, #20]
+60014722:   add     sp, #36 @ 0x24
+60014724:   vpop    {d8-d10}
+60014728:   ldmia.w sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+6001472c:   cmp     r1, #0
+6001472e:   beq.w   0x600149b8 <tss_cls_predict_freqModel+1200>
+60014732:   adds    r6, #1
+60014734:   ldr.w   r2, [r9, #8]
+60014738:   adds    r5, #4
+6001473a:   cmp     r6, r2
+6001473c:   blt.w   0x60014586 <tss_cls_predict_freqModel+126>
+60014740:   ldr.w   r3, [r9, #4]
+60014744:   ldr     r5, [sp, #28]
+60014746:   str.w   r2, [r9, #20]
+6001474a:   str.w   r3, [r9, #16]
+6001474e:   subs    r3, #227        @ 0xe3
+60014750:   ldr     r0, [pc, #320]  @ (0x60014894 <tss_cls_predict_freqModel+908>)
+60014752:   mul.w   r2, r3, r2
+60014756:   movs    r3, #1
+60014758:   str.w   r0, [r9]
+6001475c:   str.w   r2, [r9, #4]
+60014760:   lsls    r2, r2, #2
+60014762:   str.w   r3, [r9, #8]
+60014766:   bl      0x60003764 <memcpy>
+6001476a:   ldrd    r4, lr, [r9, #4]
+6001476e:   cmp.w   lr, #0
+60014772:   ble.n   0x600147d6 <tss_cls_predict_freqModel+718>
+60014774:   ldr.w   r6, [r9]
+60014778:   mov.w   r0, lr, lsl #2
+6001477c:   ldr.w   r12, [r9, #12]
+60014780:   movs    r7, #0
+60014782:   cmp     r4, #0
+60014784:   ble.n   0x600147ca <tss_cls_predict_freqModel+706>
+60014786:   vldr    s15, [pc, #252] @ 0x60014884 <tss_cls_predict_freqModel+892>
+6001478a:   mov     r2, r6
+6001478c:   movs    r3, #0
+6001478e:   adds    r3, #1
+60014790:   vldr    s14, [r2]
+60014794:   add     r2, r0
+60014796:   vmov    s13, r3
+6001479a:   vsub.f32        s14, s14, s15
+6001479e:   cmp     r3, r4
+600147a0:   vcvt.f32.s32    s12, s13
+600147a4:   vdiv.f32        s13, s14, s12
+600147a8:   vadd.f32        s15, s15, s13
+600147ac:   bne.n   0x6001478e <tss_cls_predict_freqModel+646>
+600147ae:   mov     r1, r12
+600147b0:   mov     r2, r6
+600147b2:   movs    r3, #0
+600147b4:   vldr    s14, [r2]
+600147b8:   adds    r3, #1
+600147ba:   add     r2, r0
+600147bc:   vsub.f32        s14, s14, s15
+600147c0:   cmp     r3, r4
+600147c2:   vstr    s14, [r1]
+600147c6:   add     r1, r0
+600147c8:   bne.n   0x600147b4 <tss_cls_predict_freqModel+684>
+600147ca:   adds    r7, #1
+600147cc:   adds    r6, #4
+600147ce:   add.w   r12, r12, #4
+600147d2:   cmp     r7, lr
+600147d4:   bne.n   0x60014782 <tss_cls_predict_freqModel+634>
+600147d6:   mul.w   r6, r4, lr
+600147da:   ldr     r2, [pc, #188]  @ (0x60014898 <tss_cls_predict_freqModel+912>)
+600147dc:   cmp     r6, #0
+600147de:   str.w   r2, [r9]
+600147e2:   strd    r4, lr, [r9, #16]
+600147e6:   ble.n   0x60014810 <tss_cls_predict_freqModel+776>
+600147e8:   ldr.w   r3, [r9, #12]
+600147ec:   ldr     r0, [pc, #172]  @ (0x6001489c <tss_cls_predict_freqModel+916>)
+600147ee:   add.w   r6, r3, r6, lsl #2
+600147f2:   ldr     r1, [pc, #172]  @ (0x600148a0 <tss_cls_predict_freqModel+920>)
+600147f4:   vldmia  r3!, {s15}
+600147f8:   vldmia  r0!, {s14}
+600147fc:   vldmia  r1!, {s13}
+60014800:   cmp     r6, r3
+60014802:   vsub.f32        s15, s15, s14
+60014806:   vdiv.f32        s14, s15, s13
+6001480a:   vstmia  r2!, {s14}
+6001480e:   bne.n   0x600147f4 <tss_cls_predict_freqModel+748>
+60014810:   strd    r4, lr, [r9, #4]
+60014814:   ldr     r7, [pc, #140]  @ (0x600148a4 <tss_cls_predict_freqModel+924>)
+60014816:   movs    r2, #20
+60014818:   movs    r1, #0
+6001481a:   mov     r0, r5
+6001481c:   bl      0x6001b9f0 <memset>
+60014820:   ldr     r6, [pc, #116]  @ (0x60014898 <tss_cls_predict_freqModel+912>)
+60014822:   add.w   r12, r7, #40    @ 0x28
+60014826:   ldr     r4, [r7, #4]
+60014828:   movs    r0, #0
+6001482a:   mov     r2, r0
+6001482c:   add.w   r3, r4, r2, lsl #4
+60014830:   ldrd    r2, r0, [r3, #8]
+60014834:   ldr     r1, [r3, #4]
+60014836:   vldr    s15, [r3]
+6001483a:   orrs.w  r3, r2, r0
+6001483e:   add.w   r3, r6, r1, lsl #2
+60014842:   bmi.n   0x600148ac <tss_cls_predict_freqModel+932>
+60014844:   cmp     r1, #28
+60014846:   bhi.w   0x6001471c <tss_cls_predict_freqModel+532>
+6001484a:   vldr    s14, [r3]
+6001484e:   vcmpe.f32       s15, s14
+60014852:   vmrs    APSR_nzcv, fpscr
+60014856:   bge.n   0x6001482c <tss_cls_predict_freqModel+804>
+60014858:   b.n     0x6001482a <tss_cls_predict_freqModel+802>
+6001485a:   vadd.f32        s20, s20, s15
+6001485e:   b.n     0x600146b8 <tss_cls_predict_freqModel+432>
+60014860:   cmp.w   r3, #562036736  @ 0x21800000
+60014864:   bcs.n   0x60014874 <tss_cls_predict_freqModel+876>
+60014866:   vmul.f32        s15, s15, s19
+6001486a:   vmul.f32        s20, s20, s19
+6001486e:   vmov.f32        s21, s18
+60014872:   b.n     0x60014660 <tss_cls_predict_freqModel+344>
+60014874:   vmov.f32        s21, #112       @ 0x3f800000  1.0
+60014878:   b.n     0x60014660 <tss_cls_predict_freqModel+344>
+6001487a:   nop     
+6001487c:   ldr     r3, [sp, #400]  @ 0x190
+6001487e:   movs    r0, #0
+60014880:   add     r0, pc, #16     @ (adr r0, 0x60014894 <tss_cls_predict_freqModel+908>)
+60014882:   movs    r0, #0
+60014884:   movs    r0, r0
+60014886:   movs    r0, r0
+60014888:   movs    r0, r0
+6001488a:   ldr     r0, [r0, #72]   @ 0x48
+6001488c:   movs    r0, r0
+6001488e:   asrs    r0, r0, #10
+60014890:   asrs    r4, r2, #3
+60014892:   str     r2, [r0, #0]
+60014894:   ldr     r4, [sp, #16]
+60014896:   movs    r0, #0
+60014898:   ldr     r3, [sp, #416]  @ 0x1a0
+6001489a:   movs    r0, #0
+6001489c:   asrs    r0, r4, #1
+6001489e:   str     r2, [r0, #0]
+600148a0:   lsrs    r4, r5, #31
+600148a2:   str     r2, [r0, #0]
+600148a4:   ldr     r3, [sp, #880]  @ 0x370
+600148a6:   movs    r0, #0
+600148a8:   lsrs    r0, r5, #29
+600148aa:   movs    r0, #0
+600148ac:   rsb     r2, r2, r2, lsl #28
+600148b0:   ldr.w   r3, [r7], #8
+600148b4:   vldr    s10, [r5]
+600148b8:   add.w   r4, r4, r2, lsl #4
+600148bc:   vldr    s12, [r5, #4]
+600148c0:   vldr    s13, [r5, #8]
+600148c4:   cmp     r7, r12
+600148c6:   ldr     r2, [r4, #4]
+600148c8:   vldr    s14, [r5, #12]
+600148cc:   add.w   r2, r2, r2, lsl #2
+600148d0:   vldr    s15, [r5, #16]
+600148d4:   add.w   r1, r3, r2, lsl #2
+600148d8:   add.w   r2, r2, #1
+600148dc:   vldr    s11, [r1]
+600148e0:   add.w   r3, r3, r2, lsl #2
+600148e4:   vadd.f32        s11, s11, s10
+600148e8:   vstr    s11, [r5]
+600148ec:   vldr    s10, [r3]
+600148f0:   vadd.f32        s10, s10, s12
+600148f4:   vstr    s10, [r5, #4]
+600148f8:   vldr    s12, [r3, #4]
+600148fc:   vadd.f32        s12, s12, s13
+60014900:   vstr    s12, [r5, #8]
+60014904:   vldr    s13, [r3, #8]
+60014908:   vadd.f32        s13, s13, s14
+6001490c:   vstr    s13, [r5, #12]
+60014910:   vldr    s14, [r3, #12]
+60014914:   vadd.f32        s14, s14, s15
+60014918:   vstr    s14, [r5, #16]
+6001491c:   bne.n   0x60014826 <tss_cls_predict_freqModel+798>
+6001491e:   vmov.f32        s15, #20        @ 0x40a00000  5.0
+60014922:   vdiv.f32        s9, s10, s15
+60014926:   vdiv.f32        s10, s11, s15
+6001492a:   vdiv.f32        s11, s12, s15
+6001492e:   vdiv.f32        s12, s13, s15
+60014932:   vstr    s9, [r5, #4]
+60014936:   vdiv.f32        s13, s14, s15
+6001493a:   vstr    s10, [r5]
+6001493e:   vcmpe.f32       s9, s10
+60014942:   vmov.f32        s14, s9
+60014946:   vstr    s11, [r5, #8]
+6001494a:   vmrs    APSR_nzcv, fpscr
+6001494e:   vstr    s12, [r5, #12]
+60014952:   vstr    s13, [r5, #16]
+60014956:   bgt.n   0x600149b0 <tss_cls_predict_freqModel+1192>
+60014958:   vmov.f32        s14, s10
+6001495c:   movs    r3, #0
+6001495e:   vmov.f32        s15, s11
+60014962:   vcmpe.f32       s15, s14
+60014966:   ldr     r2, [sp, #24]
+60014968:   vmrs    APSR_nzcv, fpscr
+6001496c:   it      le
+6001496e:   vmovle.f32      s15, s14
+60014972:   vldr    s14, [r5, #12]
+60014976:   it      gt
+60014978:   movgt   r3, #2
+6001497a:   vcmpe.f32       s15, s14
+6001497e:   vmrs    APSR_nzcv, fpscr
+60014982:   it      pl
+60014984:   vmovpl.f32      s14, s15
+60014988:   vldr    s15, [r5, #16]
+6001498c:   it      mi
+6001498e:   movmi   r3, #3
+60014990:   vcmp.f32        s15, s14
+60014994:   vmrs    APSR_nzcv, fpscr
+60014998:   it      gt
+6001499a:   movgt   r3, #4
+6001499c:   str     r3, [r2, #0]
+6001499e:   b.n     0x60014720 <tss_cls_predict_freqModel+536>
+600149a0:   movs    r3, #4
+600149a2:   str     r3, [sp, #20]
+600149a4:   ldr     r0, [sp, #20]
+600149a6:   add     sp, #36 @ 0x24
+600149a8:   vpop    {d8-d10}
+600149ac:   ldmia.w sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+600149b0:   vmov.f32        s15, s11
+600149b4:   movs    r3, #1
+600149b6:   b.n     0x60014962 <tss_cls_predict_freqModel+1114>
+600149b8:   ldr     r5, [sp, #28]
+600149ba:   ldrd    r3, r2, [r9, #16]
+600149be:   b.n     0x6001474e <tss_cls_predict_freqModel+582>
+          func0:
+600149c0:   movs    r0, #0
+600149c2:   bx      lr
+          tss_ad_init:
+600149c4:   push    {r4, r5, r6, lr}
+600149c6:   bl      0x600149c0 <func0>
+600149ca:   mov     r4, r0
+600149cc:   cbnz    r0, 0x600149f4 <tss_ad_init+48>
+600149ce:   ldr     r6, [pc, #40]   @ (0x600149f8 <tss_ad_init+52>)
+600149d0:   mov     r1, r0
+600149d2:   ldr     r5, [pc, #40]   @ (0x600149fc <tss_ad_init+56>)
+600149d4:   movs    r2, #52 @ 0x34
+600149d6:   mov     r0, r6
+600149d8:   bl      0x6001b9f0 <memset>
+600149dc:   movs    r2, #8
+600149de:   mov     r1, r4
+600149e0:   mov     r0, r5
+600149e2:   bl      0x6001b9f0 <memset>
+600149e6:   ldr     r3, [pc, #24]   @ (0x60014a00 <tss_ad_init+60>)
+600149e8:   ldr     r2, [pc, #24]   @ (0x60014a04 <tss_ad_init+64>)
+600149ea:   strd    r2, r3, [r5]
+600149ee:   movw    r3, #257        @ 0x101
+600149f2:   strh    r3, [r6, #0]
+600149f4:   mov     r0, r4
+600149f6:   pop     {r4, r5, r6, pc}
+600149f8:   add     r4, pc, #16     @ (adr r4, 0x60014a0c <tss_ad_predict+4>)
+600149fa:   movs    r0, #0
+600149fc:   add     r4, pc, #224    @ (adr r4, 0x60014ae0 <tss_ad_predict+216>)
+600149fe:   movs    r0, #0
+60014a00:   adds    r4, r2, r3
+60014a02:   str     r2, [r0, #0]
+60014a04:   subs    r4, r2, r4
+60014a06:   str     r2, [r0, #0]

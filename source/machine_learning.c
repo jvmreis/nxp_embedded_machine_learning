@@ -330,8 +330,10 @@ int ml_classification(void)
         }else{
 
         	for(int i=0;i<TSS_CLASS_NUMBER_freqModel;i++){
-                PRINTF("class[%d] %f \r\n", i,probabilities[i]);
+                PRINTF("class[%d] %.1f ", i,probabilities[i]*100);
+
         	}
+            PRINTF("cycles %d \r\n", cycleCnt);
 
            // ...PRINTF("classification %f %d\r\n", probabilities[0],0);
         }
