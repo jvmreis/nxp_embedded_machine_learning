@@ -2,7 +2,7 @@
  * machine_learning.c
  *
  *  Created on: 11. 6. 2025
- *      Author: xmartij01
+ *      Author: jvmreis
  */
 
 #include "TimeSeries.h"
@@ -72,46 +72,6 @@ void acc_sample_data(float data_buffer[])
     }
 }
 
-
-/*
- * @brief Collects one full line of acceleration samples for ML input
- *        Each line has SAMPLES_PER_LINE vectors of (X,Y,Z) data
- */
-//void mic_sample_data(float data_buffer[])
-//{
-//    uint32_t sample_idx = 0;  // Conta amostras completas (x,y,z)
-//    uint8_t fifo_buffer[6];
-//    sai_transfer_t xfer                = {0};
-//    FRESULT error;
-//
-//    uint32_t i            = 0;
-//    uint32_t bytesWritten = 0;
-//    uint32_t bytesRead    = 0;
-//    uint32_t sdReadCount  = 0;
-//
-//    memset(audioBuff, 0, BUFFER_SIZE * BUFFER_NUM);
-//    xfer.dataSize = BUFFER_SIZE;
-//
-//    xfer.data = audioBuff ;
-//    SAI_TransferReceiveEDMA(DEMO_SAI_PERIPHERAL, &rxHandle, &xfer);
-//
-//
-//    beginCount = 1;
-//
-//    while (!isrxFinished || fullBlock > 0) {
-//        if (fullBlock > 0) {
-//           // error = f_write(&g_fileObject, audioBuff + txindex * BUFFER_SIZE, BUFFER_SIZE, (UINT *)&bytesWritten);
-//        	for(int i=0;i<BUFFER_NUM;i++){
-//        		data_buffer[i]=(float)audioBuff[i];
-//        	}
-//
-//        	fullBlock--;
-//            emptyBlock++;
-//        }
-//
-//    }
-//}
-
 void mic_sample_data(float data_buffer[])
 {
     uint32_t txindex      = 0;
@@ -172,73 +132,6 @@ void mic_sample_data(float data_buffer[])
     }
 }
 
-//void teste(){
-//
-//    uint32_t i = 0, bytesWritten = 0, bytesRead = 0;
-//    uint32_t txindex = 0, rxindex = 0;
-//    uint8_t header[44] = {0};
-//    FRESULT error;
-//    sai_transfer_t xfer = {0};
-//
-//    // config to 16-bit (2 bytes per samples)
-//    uint32_t bytesPerSample = 2;
-//    uint32_t totalRawBytes = time_s * DEMO_AUDIO_SAMPLE_RATE * bytesPerSample * 1U;  // mono
-//    uint32_t fileSize = totalRawBytes + 44U;
-//    uint32_t totalBlocks = totalRawBytes / BUFFER_SIZE;
-//
-//    // int buffers and flags
-//    isrxFinished = false;
-//    istxFinished = false;
-//    emptyBlock = 0;
-//    fullBlock = 0;
-//
-//
-//
-//    memset(audioBuff, 0, BUFFER_SIZE * BUFFER_NUM);
-//    xfer.dataSize = BUFFER_SIZE;
-//
-//    for (i = 0; i < BUFFER_NUM; i++) {
-//        xfer.data = audioBuff + i * BUFFER_SIZE;
-//        SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
-//    }
-//
-//    beginCount = totalBlocks;
-//
-//    while (!isrxFinished || fullBlock > 0) {
-//        if (fullBlock > 0) {
-//            error = f_write(&g_fileObject, audioBuff + txindex * BUFFER_SIZE, BUFFER_SIZE, (UINT *)&bytesWritten);
-//
-//            txindex = (txindex + 1U) % BUFFER_NUM;
-//            fullBlock--;
-//            emptyBlock++;
-//        }
-//
-//        if ((emptyBlock > 0) && (!isrxFinished)) {
-//            xfer.data = audioBuff + rxindex * BUFFER_SIZE;
-//            rxindex = (rxindex + 1U) % BUFFER_NUM;
-//            SAI_TransferReceiveEDMA(base, &rxHandle, &xfer);
-//            emptyBlock--;
-//        }
-//    }
-//
-//    for (uint32_t currentBlock = 0; currentBlock < totalBlocks; currentBlock++) {
-//
-//        // Converte 512 bytes = 256 amostras de int16_t
-//        int16_t *samples = (int16_t *)audioBuff;
-//        int sampleCount = BUFFER_SIZE / 2;
-//
-//        char *ptr = lineBuffer;
-//        for (int j = 0; j < sampleCount; j++) {
-//            ptr += sprintf(ptr, "%d", samples[j]);
-//            *ptr++ = (j == sampleCount - 1) ? '\n' : ' ';
-//        }
-//        *ptr = '\0';
-//
-//        f_printf(&g_fileObject, "%s", lineBuffer);
-//        f_close(&g_fileObject);
-//    }
-//
-//}
 
 /*
  * @brief Runs eIQ Time Series anomaly detection

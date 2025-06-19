@@ -103,7 +103,7 @@ During real-time inference, the model compares live acceleration input with lear
 ## 📖 Documentation
 
 A full technical lab report is available in PDF and Markdown formats, including:
-- **[eiQ time series guide ](https://github.com/jvmreis/nxp_interrupt_lesson/blob/main/documents/Embedded%20Machine%20Learning%20Implementation%20Using%20eiQ.pdf)**
+- **[eiQ time series guide ](https://github.com/jvmreis/nxp_embedded_machine_learning/blob/main/documents/Embedded%20Machine%20Learning%20Implementation%20Using%20eiQ.pdf)**
   - **[Schematic diagrams ](https://github.com/jvmreis/nxp_interrupt_lesson/blob/main/documents/imxrt1050evkb_schematic.pdf)**
 - **[MPU-6050 Register Map](https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Register-Map1.pdf)**
 ---
