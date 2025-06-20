@@ -6,7 +6,7 @@
  * Generated linker script file for MIMXRT1052xxxxB
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.30
- * MCUXpresso IDE v24.12 [Build 148] [2025-01-10] on Jun 19, 2025, 3:37:56 PM
+ * MCUXpresso IDE v24.12 [Build 148] [2025-01-10] on Jun 20, 2025, 11:46:40 AM
  */
 
 INCLUDE "evkbimxrt1050_sai_peripheral_Debug_library.ld"
