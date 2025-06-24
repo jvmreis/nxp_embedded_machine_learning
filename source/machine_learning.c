@@ -198,7 +198,7 @@ void ml_classification_microphone(void)
     tss_status status;
     float probabilities[TSS_CLASS_NUMBER_freqModel];
     int class_index;
-    uint32_t cycleCnt;
+    uint32_t cycleCnt=0;
 
     status = tss_cls_init_freqModel();
     if (status != TSS_SUCCESS)
@@ -211,11 +211,12 @@ void ml_classification_microphone(void)
     while (1)
     {
 
-    	DWT->CYCCNT=0;
     	mic_sample_data(mic_data_input);
 
+    	DWT->CYCCNT=0;
         status = tss_cls_predict_freqModel(mic_data_input, probabilities, &class_index);
 		cycleCnt = DWT->CYCCNT;
+
         if (status != TSS_SUCCESS)
         {
             /* Handle the prediction failure cases */
@@ -223,11 +224,8 @@ void ml_classification_microphone(void)
 
         }else{
 
-        	for(int i=0;i<TSS_CLASS_NUMBER_freqModel;i++){
-                PRINTF("class[%d] %.1f ", i,probabilities[i]*100);
-
-        	}
-            PRINTF("cycles %d \r\n", cycleCnt);
+            PRINTF("4khz %.1f 2khz %.1f 1780hz %.1f 860hz %.1f 244hz %.1f cycles %d \r\n",
+            probabilities[0],probabilities[1],probabilities[2],probabilities[3],probabilities[4], cycleCnt);
 
            // ...PRINTF("classification %f %d\r\n", probabilities[0],0);
         }
@@ -236,7 +234,6 @@ void ml_classification_microphone(void)
     }
 
 }
-
 
 
 void ml_classification_acce(void)

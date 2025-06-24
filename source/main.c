@@ -385,9 +385,9 @@ int main(void)
                 break;
 
             case '2':
-            	ml_classification_acce();
+            	//ml_classification_acce();
 
-            	//ml_classification_microphone();
+            	ml_classification_microphone();
 
                 break;
 
