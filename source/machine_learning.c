@@ -7,6 +7,7 @@
 
 #include "TimeSeries.h"
 #include "TimeSeries_freqModel.h"
+#include "TimeSeries_fanClass.h"
 #include "machine_learning.h"
 #include "peripherals.h"
 #include "sai.h"
@@ -15,7 +16,7 @@
 #include <stdio.h>
 #include "stdio.h"
 
-float acc_data_input[TSS_INPUT_DATA_LEN * TSS_INPUT_DATA_DIM];
+float acc_data_input[TSS_INPUT_DATA_LEN_fanClass * TSS_INPUT_DATA_DIM_fanClass];
 float mic_data_input[512];
 
 extern volatile bool i2c_new_data;
@@ -43,7 +44,7 @@ void acc_sample_data(float data_buffer[])
     uint32_t sample_idx = 0;  // Conta amostras completas (x,y,z)
     uint8_t fifo_buffer[6];
 
-    while (sample_idx < TSS_INPUT_DATA_LEN)
+    while (sample_idx < TSS_INPUT_DATA_LEN_fanClass)
     {
         if (i2c_new_data)
         {
@@ -70,6 +71,7 @@ void acc_sample_data(float data_buffer[])
         }
         /********************************************************/
     }
+
 }
 
 void mic_sample_data(float data_buffer[])
@@ -137,7 +139,7 @@ void mic_sample_data(float data_buffer[])
  * @brief Runs eIQ Time Series anomaly detection
  *        Trains model (if ODL enabled), then continuously predicts
  */
-int ml_anmaly_detection(void)
+void ml_anmaly_detection(void)
 {
     tss_status status;
     float probability;
@@ -190,9 +192,8 @@ int ml_anmaly_detection(void)
         /* Handle the prediction result */
     }
 
-    return 0;
 }
-int ml_classification(void)
+void ml_classification_microphone(void)
 {
     tss_status status;
     float probabilities[TSS_CLASS_NUMBER_freqModel];
@@ -234,5 +235,48 @@ int ml_classification(void)
         /* Handle the prediction result */
     }
 
-    return 0;
+}
+
+
+
+void ml_classification_acce(void)
+{
+    tss_status status;
+    float probabilities[TSS_CLASS_NUMBER_fanClass];
+    int class_index;
+    uint32_t cycleCnt=0;
+
+    status = tss_cls_init_fanClass();
+    if (status != TSS_SUCCESS)
+    {
+        /* Handle the initialization failure cases */
+        PRINTF("start error %d\r\n",status);
+
+    }
+
+    while (1)
+    {
+
+    	acc_sample_data(acc_data_input);
+
+    	DWT->CYCCNT=0;
+        status = tss_cls_predict_fanClass(acc_data_input, probabilities, &class_index);
+		cycleCnt = DWT->CYCCNT;
+
+        if (status != TSS_SUCCESS)
+        {
+            /* Handle the prediction failure cases */
+          PRINTF("error %d\r\n",status);
+
+        }else{
+
+          PRINTF("FAN_ON %.1f FAN_OFF %.1f FAN_FRIC %.1f FAN_CLOGGED %.1f cycles %d \r\n",
+          probabilities[0],probabilities[1],probabilities[2],probabilities[3], cycleCnt);
+
+           // ...PRINTF("classification %f %d\r\n", probabilities[0],0);
+        }
+
+        /* Handle the prediction result */
+    }
+
 }

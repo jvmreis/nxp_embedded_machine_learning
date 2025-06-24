@@ -3223,7 +3223,7 @@ void MPU6050_configurePollingMode(void)
     MPU6050_setRate(0);        // Sample rate = 1000 / (1+0) = 1 kHz
 
     MPU6050_setFullScaleAccelRange(MPU6050_ACCEL_FS_4);  // ±4g scale
-    MPU6050_setFullScaleGyroRange(MPU6050_GYRO_FS_250);   // Optional: 250°/s
+    MPU6050_setFullScaleGyroRange(MPU6050_GYRO_FS_2000);   // Optional: 250°/s
 
     MPU6050_setFIFOEnabled(false);                   // Disable FIFO
     MPU6050_setAccelFIFOEnabled(false);              // Don't push accel to FIFO

@@ -30,12 +30,12 @@
             '\0'                                                                                                     \
     }
 
-//AT_NONCACHEABLE_SECTION_ALIGN(uint8_t acccBuff[ACC_BUFFER_SIZE * AXIS_NUM], 4);
 
-#define ACC_BUFFER_SIZE 512
 #define AXIS_NUM 3
-#define SAMPLES_PER_LINE 128  // Number of samples per line before inserting a newline
+#define SAMPLES_PER_LINE 512  // Number of samples per line before inserting a newline
 #define ACQUISITION_TIME 5 //seconds
+#define MPU6050_DATA_SAMPLE 2000 //2KHZ
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -64,9 +64,9 @@ extern fxos_handle_t g_fxosHandle;
 /*
  * Buffers for logging raw acceleration data
  */
-static int16_t ax_buffer[ 1000 * ACQUISITION_TIME];
-static int16_t ay_buffer[ 1000 * ACQUISITION_TIME];
-static int16_t az_buffer[ 1000 * ACQUISITION_TIME];
+static int16_t ax_buffer[ MPU6050_DATA_SAMPLE * ACQUISITION_TIME];
+static int16_t ay_buffer[ MPU6050_DATA_SAMPLE * ACQUISITION_TIME];
+static int16_t az_buffer[ MPU6050_DATA_SAMPLE * ACQUISITION_TIME];
 
 /*******************************************************************************
  * Code
@@ -333,7 +333,7 @@ FRESULT ClearRecordFolder(void)
  */
 void PrintAccelerometerBuffer(int16_t *ax_buffer, int16_t *ay_buffer,int16_t *az_buffer, uint16_t sample_count) {
 
-	char buffer[100];
+	char buffer[255];
 	FRESULT error;
 	static int file_counter = 0;
 	char filename[64];
@@ -354,11 +354,11 @@ void PrintAccelerometerBuffer(int16_t *ax_buffer, int16_t *ay_buffer,int16_t *az
 
 		if ((i + 1) % SAMPLES_PER_LINE == 0) {
 			sprintf(buffer, "%d %d %d\n", (int16_t) ax_buffer[i],(int16_t) ay_buffer[i], (int16_t) az_buffer[i]);
-			PRINTF("%s", buffer);
+			//PRINTF("%s", buffer);
 			f_printf(&g_fileObject, "%s", buffer);
 		} else {
 			sprintf(buffer, "%d %d %d ", (int16_t) ax_buffer[i],(int16_t) ay_buffer[i], (int16_t) az_buffer[i]);
-			PRINTF("%s", buffer);
+			//PRINTF("%s", buffer);
 			f_printf(&g_fileObject, "%s", buffer);
 		}
 	}
@@ -375,7 +375,7 @@ void RecordExternalAcceSDCard()
     PRINTF("\r\n[INFO] Begin to record accelerometer data...\r\n");
 
     uint32_t collected = 0;
-    const uint32_t target_samples =  1000 * ACQUISITION_TIME; // 2 kHz
+    const uint32_t target_samples =  MPU6050_DATA_SAMPLE * ACQUISITION_TIME; // 2 kHz
 
     static int16_t ax =0,az=0,ay=0;
     uint8_t fifo_buffer[6];
