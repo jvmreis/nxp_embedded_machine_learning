@@ -39,12 +39,12 @@ extern volatile uint32_t emptyBlock;
  * @brief Collects one full line of acceleration samples for ML input
  *        Each line has SAMPLES_PER_LINE vectors of (X,Y,Z) data
  */
-void acc_sample_data(float data_buffer[])
+void acc_sample_data(float data_buffer[],uint16_t size)
 {
     uint32_t sample_idx = 0;  // Conta amostras completas (x,y,z)
     uint8_t fifo_buffer[6];
 
-    while (sample_idx < TSS_INPUT_DATA_LEN_fanClass)
+    while (sample_idx < size)
     {
         if (i2c_new_data)
         {
@@ -175,7 +175,7 @@ void ml_anmaly_detection(void)
 
     while (1)
     {
-    	acc_sample_data(acc_data_input);
+    	acc_sample_data(acc_data_input,TSS_INPUT_DATA_LEN);
         DWT->CYCCNT=0;
         status = tss_ad_predict(acc_data_input, &probability);
         cycleCnt = DWT->CYCCNT;
@@ -254,7 +254,7 @@ void ml_classification_acce(void)
     while (1)
     {
 
-    	acc_sample_data(acc_data_input);
+    	acc_sample_data(acc_data_input,TSS_INPUT_DATA_LEN_fanClass);
 
     	DWT->CYCCNT=0;
         status = tss_cls_predict_fanClass(acc_data_input, probabilities, &class_index);

@@ -49,15 +49,17 @@ nxp_embedded_machine_learning.mex | MCUXpresso config file for board setup
 - Copy it to source/lib/ and rebuild the firmware in MCUXpresso.
 - Use Tera Term UART Menu to test the embedded model:
   - Option 1 → Run anomaly detection
-  - Option 2 → Run classification
-  - Option 3 → Clear SD card
-  - Option 4 → Record accelerometer data
-  - Option 5 → Record microphone data
+  - Option 2 → Run Frequency classification
+  - Option 3 → Run Fan state classification
+  - Option 4 → Clear SD card
+  - Option 5 → Record accelerometer data
+  - Option 6 → Record microphone data
 
 ## 🛠️ Signal Input Selection
 In machine_learning.c, you can select the signal source (acc_sample_data() or mic_sample_data()) for each model. By default:
 - Anomaly detection uses accelerometer
-- Classification uses microphone
+- Frequency classification uses microphone
+- Fan state classification uses accelerometer
 
 ---
 
@@ -123,11 +125,12 @@ ${workspace_loc:/${ProjName}/source/lib}
 6. Connect via Tera Term @ 115200 baud:
 
    1. Anomaly detection embedded Machine Learning Model
-   2. Classification embedded Machine Learning Model
-   3. Exclude files
-   4. Record to SDcard Ext Accelerometer Data
-   5. Record to SDcard Microphone Data
-   6. Quit
+   2. Frequency Classification embedded Machine Learning Model
+   3. Fan State Classification embedded Machine Learning Model
+   4. Exclude files
+   5. Record to SDcard Ext Accelerometer Data
+   6. Record to SDcard Microphone Data
+   7. Quit
 
 ---
 
@@ -148,6 +151,17 @@ ${workspace_loc:/${ProjName}/source/lib}
 - class[3] → 860 Hz
 - class[4] → 244 Hz
 
+- 4khz 0.6 2khz 0.0 1780hz 0.0 860hz 0 244hz 0.4 cycles 195528
+
+3. Classification (accelerometer):
+
+## 🎯 Default Classification fan state:
+- class[0] → fan on
+- class[1] → fan off
+- class[2] → friction
+- class[3] → clogged
+
+- FAN_ON 1.0 FAN_OFF 0 FAN_FRIC 0 FAN_CLOGGED 0 cycles 1837440
 ---
 
 ## 📖 Documentation
